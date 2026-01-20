@@ -20,7 +20,10 @@ entities:
   - year
   - max_num_pages
   - min_num_pages
-  - rating
+  - num_pages
+  - min_avg_rating
+  - max_avg_rating
+  - characters
 
 slots:
   genre:

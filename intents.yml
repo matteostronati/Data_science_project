@@ -1,241 +1,35 @@
-intents:
+- intent: find_book_by_title
+  examples: |
+    - "Find [The Hobbit](title)."
+    - "Search for [1984](title)."
+    - "I’m looking for [Pride and Prejudice](title)."
+    - "Do you have [To Kill a Mockingbird](title)?"
+    - "Can you look up [The Great Gatsby](title) for me?"
+    - "Show me the book titled [Dune](title)."
+    - "I want to read [The Catcher in the Rye](title)."
+    - "Please find [The Lord of the Rings](title)."
+    - "Locate [The Name of the Rose](title)."
+    - "Find the title [Brave New World](title)."
+    - "Is [The Alchemist](title) available?"
+    - "Pull up [The Da Vinci Code](title)."
+    - "Get me details for [Harry Potter and the Sorcerer’s Stone](title)."
+    - "I need the book called [The Shining](title)."
+    - "Search the catalog for [The Girl with the Dragon Tattoo](title)."
 
-  - name: find_book_by_title
-    uses_entities: [title]
-    examples:
-      - "Find [Harry Potter and the Half-Blood Prince](title)."
-      - "Search for the book titled [The Hobbit](title)."
-      - "Do you have [1984](title)?"
-      - "Look up [Pride and Prejudice](title)."
-
-  - name: find_book_by_author
-    uses_entities: [author]
-    examples:
-      - "Show me books by [J.K. Rowling](author)."
-      - "Find novels written by [George Orwell](author)."
-      - "Search titles from [Stephen King](author)."
-      - "What books did [Agatha Christie](author) write?"
-
-  - name: find_book_by_title_and_author
-    uses_entities: [title, author]
-    examples:
-      - "Find [The Shining](title) by [Stephen King](author)."
-      - "Look up [Dune](title) by [Frank Herbert](author)."
-      - "Search for [The Great Gatsby](title) by [F. Scott Fitzgerald](author)."
-      - "Find [The Hobbit](title) written by [J.R.R. Tolkien](author)."
-
-  - name: find_book_by_series
-    uses_entities: [series]
-    examples:
-      - "Find books in the series [Harry Potter #](series)."
-      - "Show me the [The Lord of the Rings](series) series."
-      - "Search titles from the series [A Song of Ice and Fire](series)."
-      - "Find books in [Percy Jackson and the Olympians](series)."
-
-  - name: find_book_by_genre
-    uses_entities: [genres]
-    examples:
-      - "Find [Fantasy](genres) books."
-      - "Show me [Science Fiction](genres) titles."
-      - "Search for [Mystery](genres) novels."
-      - "Find [Nonfiction](genres) books."
-
-  - name: find_book_by_multiple_genres
-    uses_entities: [genres]
-    examples:
-      - "Find books tagged [Fantasy](genres) and [Young Adult](genres)."
-      - "Search [Thriller](genres) and [Mystery](genres) books."
-      - "Show [Romance](genres) and [Fiction](genres) titles."
-      - "Find [History](genres) and [Nonfiction](genres) books."
-
-  - name: find_book_by_language
-    uses_entities: [language]
-    examples:
-      - "Find books in [English](language)."
-      - "Show me titles in [Italian](language)."
-      - "Search books written in [Spanish](language)."
-      - "Find [French](language) books."
-
-  - name: find_book_by_genre_and_language
-    uses_entities: [genres, language]
-    examples:
-      - "Find [Fantasy](genres) books in [English](language)."
-      - "Show [Romance](genres) titles in [Italian](language)."
-      - "Search [Nonfiction](genres) in [Spanish](language)."
-      - "Find [Science Fiction](genres) books in [English](language)."
-
-  - name: find_book_by_isbn
-    uses_entities: [isbn]
-    examples:
-      - "Find the book with ISBN [0439358078](isbn)."
-      - "Search ISBN [0307474275](isbn)."
-      - "Look up isbn [0140449132](isbn)."
-      - "Can you find this ISBN: [0061120081](isbn)?"
-
-  - name: find_book_by_isbn13
-    uses_entities: [isbn13]
-    examples:
-      - "Find the book with ISBN13 [9780439358071](isbn13)."
-      - "Search isbn13 [9780307474278](isbn13)."
-      - "Look up ISBN-13 [9780140449136](isbn13)."
-      - "isbn13: [9780061120084](isbn13)"
-
-  - name: find_book_by_place
-    uses_entities: [places]
-    examples:
-      - "Find books set in [London](places)."
-      - "Show me books set in [England](places)."
-      - "Search books that take place in [Hogwarts School of Witchcraft and Wizardry](places)."
-      - "Find books set in [New York](places)."
-
-  - name: find_book_by_place_and_genre
-    uses_entities: [places, genres]
-    examples:
-      - "Find [Mystery](genres) books set in [London](places)."
-      - "Show [Historical Fiction](genres) set in [England](places)."
-      - "Search [Fantasy](genres) books set in [Ireland](places)."
-      - "Find [Thriller](genres) set in [New York](places)."
-
-  - name: find_book_by_character
-    uses_entities: [characters]
-    examples:
-      - "Find books featuring [Harry Potter](characters)."
-      - "Search books with [Sherlock Holmes](characters)."
-      - "Show titles that include [Hermione Granger](characters)."
-      - "Find books with the character [Draco Malfoy](characters)."
-
-  - name: find_book_by_character_and_genre
-    uses_entities: [characters, genres]
-    examples:
-      - "Find [Fantasy](genres) books with [Harry Potter](characters)."
-      - "Show [Mystery](genres) titles with [Sherlock Holmes](characters)."
-      - "Search [Young Adult](genres) books featuring [Hermione Granger](characters)."
-      - "Find [Fiction](genres) books with [Draco Malfoy](characters)."
-
-  - name: find_book_by_award
-    uses_entities: [awards]
-    examples:
-      - "Find books that won the [Audie Award](awards)."
-      - "Show titles with the [Bram Stoker Award](awards)."
-      - "Search books nominated for the [Locus Award](awards)."
-      - "Find books with the award [Carnegie Medal](awards)."
-
-  - name: find_book_by_award_and_genre
-    uses_entities: [awards, genres]
-    examples:
-      - "Find [Fantasy](genres) books that won the [Locus Award](awards)."
-      - "Show [Horror](genres) titles with the [Bram Stoker Award](awards)."
-      - "Search [Young Adult](genres) award-winning books ([Audie Award](awards))."
-      - "Find [Mystery](genres) books with the [Anthony Award](awards)."
-
-  - name: find_book_by_description_keywords
-    uses_entities: [description]
-    examples:
-      - "Find books whose description mentions [time travel](description)."
-      - "Search books described as [coming-of-age](description)."
-      - "Find books with [wizard school](description) in the description."
-      - "Show books that mention [political dystopia](description)."
-
-  - name: find_book_by_publish_year
-    uses_entities: [publish_date, year]
-    examples:
-      - "Find books published in [2004](year)."
-      - "Show books released in [1997](year)."
-      - "Search titles published in [2010](year)."
-      - "Find books published in the year [2006](year)."
-
-  - name: find_book_by_first_publish_year
-    uses_entities: [first_publish_date, year]
-    examples:
-      - "Find books first published in [2003](year)."
-      - "Show books originally published in [1954](year)."
-      - "Search titles first published in [1813](year)."
-      - "Find books with first publication year [1965](year)."
-
-  - name: find_book_by_year_range
-    uses_entities: [year_start, year_end, publish_date]
-    examples:
-      - "Find books published between [2000](year_start) and [2010](year_end)."
-      - "Show titles released from [1990](year_start) to [1999](year_end)."
-      - "Search books published between [2015](year_start) and [2020](year_end)."
-      - "Find books released from [1950](year_start) to [1970](year_end)."
-
-  - name: find_book_by_page_range
-    uses_entities: [min_num_pages, max_num_pages, num_pages]
-    examples:
-      - "Find books under [200](max_num_pages) pages."
-      - "Show books with more than [500](min_num_pages) pages."
-      - "Search books between [250](min_num_pages) and [400](max_num_pages) pages."
-      - "Find short books (max [150](max_num_pages) pages)."
-
-  - name: find_book_by_min_rating
-    uses_entities: [min_avg_rating, avg_rating]
-    examples:
-      - "Find books with rating above [4.5](min_avg_rating)."
-      - "Show books with an average rating of at least [4.2](min_avg_rating)."
-      - "Search titles rated higher than [4.0](min_avg_rating)."
-      - "Find highly rated books (min rating [4.6](min_avg_rating))."
-
-  - name: find_book_by_rating_range
-    uses_entities: [min_avg_rating, max_avg_rating, avg_rating]
-    examples:
-      - "Find books with rating between [4.0](min_avg_rating) and [4.3](max_avg_rating)."
-      - "Show books rated from [3.5](min_avg_rating) to [4.0](max_avg_rating)."
-      - "Search books in the rating range [4.4](min_avg_rating)-[4.8](max_avg_rating)."
-      - "Find books with rating under [3.8](max_avg_rating)."
-
-  - name: find_book_by_popularity_ratings
-    uses_entities: [min_num_ratings, num_ratings]
-    examples:
-      - "Find books with at least [100000](min_num_ratings) ratings."
-      - "Show very popular books (min ratings [500000](min_num_ratings))."
-      - "Search books with more than [200000](min_num_ratings) ratings."
-      - "Find books with at least [1000000](min_num_ratings) ratings."
-
-  - name: find_book_by_popularity_reviews
-    uses_entities: [min_num_reviews, num_reviews]
-    examples:
-      - "Find books with at least [5000](min_num_reviews) reviews."
-      - "Show books with more than [10000](min_num_reviews) reviews."
-      - "Search books with at least [20000](min_num_reviews) reviews."
-      - "Find heavily reviewed books (min reviews [8000](min_num_reviews))."
-
-  - name: find_book_by_rating_and_popularity
-    uses_entities: [min_avg_rating, min_num_ratings, avg_rating, num_ratings]
-    examples:
-      - "Find books rated at least [4.3](min_avg_rating) with more than [200000](min_num_ratings) ratings."
-      - "Show books with rating >= [4.5](min_avg_rating) and ratings >= [100000](min_num_ratings)."
-      - "Search highly rated popular books (min rating [4.2](min_avg_rating), min ratings [300000](min_num_ratings))."
-      - "Find books above [4.0](min_avg_rating) with at least [500000](min_num_ratings) ratings."
-
-  - name: find_book_by_five_star_count
-    uses_entities: [min_rated_5, rated_5]
-    examples:
-      - "Find books with at least [500000](min_rated_5) five-star ratings."
-      - "Show books with more than [1000000](min_rated_5) 5-star votes."
-      - "Search books with at least [200000](min_rated_5) five-star ratings."
-      - "Find books with a huge number of 5-star ratings (min [750000](min_rated_5))."
-
-  - name: find_book_with_sorting
-    uses_entities: [sort_by, sort_order, limit]
-    examples:
-      - "Show top [10](limit) books sorted by [avg_rating](sort_by) [desc](sort_order)."
-      - "List [20](limit) books ordered by [num_ratings](sort_by) [desc](sort_order)."
-      - "Find [15](limit) newest books sorted by [publish_date](sort_by) [desc](sort_order)."
-      - "Show [25](limit) books sorted by [num_reviews](sort_by) [desc](sort_order)."
-
-  - name: find_books_by_author_and_language
-    uses_entities: [author, language]
-    examples:
-      - "Find books by [J.K. Rowling](author) in [English](language)."
-      - "Show titles by [Gabriel García Márquez](author) in [Spanish](language)."
-      - "Search books by [Umberto Eco](author) in [Italian](language)."
-      - "Find books by [Albert Camus](author) in [French](language)."
-
-  - name: find_books_by_author_and_year
-    uses_entities: [author, year, publish_date]
-    examples:
-      - "Find books by [Stephen King](author) published in [1986](year)."
-      - "Show books by [George Orwell](author) released in [1949](year)."
-      - "Search titles by [J.K. Rowling](author) published in [2005](year)."
-      - "Find books by [Agatha Christie](author) published in [1934](year)."
+- intent: find_book_by_author
+  examples: |
+    - "Find books by [Stephen King](author)."
+    - "Show me titles written by [Agatha Christie](author)."
+    - "Search for books from [George Orwell](author)."
+    - "Do you have any books by [J.K. Rowling](author)?"
+    - "List novels by [Haruki Murakami](author)."
+    - "Find all books authored by [Jane Austen](author)."
+    - "Look up works by [Isaac Asimov](author)."
+    - "Show books by [Brandon Sanderson](author)."
+    - "Search the catalog for [Ernest Hemingway](author)."
+    - "What books did [Neil Gaiman](author) write?"
+    - "Find books written by [Toni Morrison](author)."
+    - "Get me books from [Gabriel García Márquez](author)."
+    - "Show me novels by [Umberto Eco](author)."
+    - "Find books by [Margaret Atwood](author)."
+    - "Search for [Franz Kafka](author) books."

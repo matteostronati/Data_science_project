@@ -76,6 +76,7 @@ nlu:
     - any book recommendations
     - show me some books
     - I need reading suggestions
+
 - intent: specify_genre
   examples: |
     - I like [fiction](genre)
@@ -91,6 +92,7 @@ nlu:
     - [nonfiction](genre) books
     - something about [history](genre)
     - I want a book talking about [sports](genre)
+
 - intent: find_book_by_title
   examples: |
     - Find [The Hobbit](title)
@@ -108,6 +110,7 @@ nlu:
     - Get me details for [Harry Potter and the Sorcerer’s Stone](title)
     - I need the book called [The Shining](title)
     - Search the catalog for [The Girl with the Dragon Tattoo](title)
+
 - intent: find_book_by_author
   examples: |
     - Find books by [Stephen King](author)
@@ -125,6 +128,7 @@ nlu:
     - Show me novels by [Umberto Eco](author)
     - Find books by [Margaret Atwood](author)
     - Search for [Franz Kafka](author) books
+
 - intent: find_book_by_page_range
   examples: |
     - Find books under [200](max_num_pages) pages
@@ -136,9 +140,75 @@ nlu:
     - Find books between [200](min_num_pages) and [350](max_num_pages) pages
     - Show books with [250](min_num_pages) to [450](max_num_pages) pages
     - Search for books ranging from [100](min_num_pages) to [200](max_num_pages) pages
-    - Find books around [320](num_pages) pages
-    - Show me books that are about [500](num_pages) pages long
-    - Search books close to [180](num_pages) pages
     - Find short books max [120](max_num_pages) pages
     - Find long books min [700](min_num_pages) pages
     - Show books between [50](min_num_pages) and [120](max_num_pages) pages
+
+- intent: find_book_by_page
+  examples: |
+    - Find books around [120](num_pages) pages
+    - Show books that are about [250](num_pages) pages long
+    - Search for books close to [360](num_pages) pages
+    - Find books roughly [90](num_pages) pages
+    - Show me books near [410](num_pages) pages
+    - Search books approximately [600](num_pages) pages long
+    - Find books with about [275](num_pages) pages
+    - Show books that are roughly [150](num_pages) pages
+    - Search for books around [725](num_pages) pages
+    - Find books close to [200](num_pages) pages long
+    - Show me books approximately [330](num_pages) pages
+    - Search books near [480](num_pages) pages
+    - Find books about [50](num_pages) pages
+    - Show books around [840](num_pages) pages
+    - Search for books roughly [390](num_pages) pages
+
+- intent: find_books_by_author_and_page_range
+  examples: |
+    - Find books by [Stephen King](author) with more than [450](min_num_pages) pages
+    - Show books by [Agatha Christie](author) with fewer than [250](max_num_pages) pages
+    - Find titles by [J K Rowling](author) under [400](max_num_pages) pages
+    - Show novels by [Haruki Murakami](author) over [350](min_num_pages) pages
+    - Find books by [Isaac Asimov](author) with at least [500](min_num_pages) pages
+    - Show books by [Brandon Sanderson](author) with less than [600](max_num_pages) pages
+    - Find books by [Neil Gaiman](author) no more than [220](max_num_pages) pages
+    - Show books by [Toni Morrison](author) longer than [320](min_num_pages) pages
+    - Search books by [Gabriel García Márquez](author) shorter than [200](max_num_pages) pages
+    - Show titles by [Margaret Atwood](author) with a maximum of [350](max_num_pages) pages
+    - Search for [Franz Kafka](author) books with over [150](min_num_pages) pages
+
+- intent: find_book_by_rating_range
+  examples: |
+    - Find books with rating greater than [4.5](min_avg_rating)
+    - Show books with average rating above [4.2](min_avg_rating)
+    - Search for books rated higher than [4.7](min_avg_rating)
+    - Find books with rating lower than [3.0](max_avg_rating)
+    - Show books with average rating under [3.6](max_avg_rating)
+    - Search books rated below [2.5](max_avg_rating)
+    - Find books with rating around [4.0](avg_rating)
+    - Show books with average rating close to [3.8](avg_rating)
+    - Search for books with rating approximately [4.4](avg_rating)
+    - Find books with rating not less than [3.9](min_avg_rating)
+    - Show books with rating at most [4.1](max_avg_rating)
+    - Search books with rating no more than [2.0](max_avg_rating)
+    - Find books rated at least [4.1](min_avg_rating)
+    - Show books with rating near [3.2](avg_rating)
+    - Search for books with average rating just over [3.5](min_avg_rating)
+
+- intent: find_book_by_character
+  examples: |
+    - Find books featuring [Harry Potter](characters)
+    - Show books with the character [Sherlock Holmes](characters)
+    - Search books that include [Hermione Granger](characters)
+    - Find titles where [Katniss Everdeen](characters) appears
+    - Show me books with [Frodo Baggins](characters)
+    - Search for books featuring [Elizabeth Bennet](characters)
+    - Find books with [Jay Gatsby](characters)
+    - Show titles with [Atticus Finch](characters)
+    - Search books that have [Hercule Poirot](characters)
+    - Find books featuring [Bilbo Baggins](characters)
+    - Show books that include [Dracula](characters)
+    - Search for books with [Alice](characters)
+    - Find books where [Winston Smith](characters) is a main character
+    - Show books featuring [Holden Caulfield](characters)
+    - Search titles with the character [Jo March](characters)
+
