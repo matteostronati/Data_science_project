@@ -10,23 +10,24 @@ intents:
   - affirm
   - deny
   - stop
+  - new_search
   - find_book
   - specify_genre
   - find_book_by_title
   - find_book_by_author
   - find_book_by_page_range
   - find_book_by_page
-  - find_books_by_author_and_page_range
   - find_book_by_rating_range
   - find_book_by_character
 
 entities:
   - genre
-  - author
   - title
-  - max_num_pages
-  - min_num_pages
+  - author
   - num_pages
+  - min_num_pages
+  - max_num_pages
+  - avg_rating
   - min_avg_rating
   - max_avg_rating
   - characters
@@ -34,23 +35,86 @@ entities:
 slots:
   genre:
     type: text
-    influence_conversation: true
+    influence_conversation: false
     mappings:
       - type: from_entity
         entity: genre
+  
+  title:
+    type: text
+    influence_conversation: false
+    mappings:
+      - type: from_entity
+        entity: title
+  
+  author:
+    type: text
+    influence_conversation: false
+    mappings:
+      - type: from_entity
+        entity: author
+  
+  num_pages:
+    type: float
+    influence_conversation: false
+    mappings:
+      - type: from_entity
+        entity: num_pages
+  
+  min_num_pages:
+    type: float
+    influence_conversation: false
+    mappings:
+      - type: from_entity
+        entity: min_num_pages
+  
+  max_num_pages:
+    type: float
+    influence_conversation: false
+    mappings:
+      - type: from_entity
+        entity: max_num_pages
+  
+  avg_rating:
+    type: float
+    influence_conversation: false
+    mappings:
+      - type: from_entity
+        entity: avg_rating
+  
+  min_avg_rating:
+    type: float
+    influence_conversation: false
+    mappings:
+      - type: from_entity
+        entity: min_avg_rating
+  
+  max_avg_rating:
+    type: float
+    influence_conversation: false
+    mappings:
+      - type: from_entity
+        entity: max_avg_rating
+  
+  characters:
+    type: text
+    influence_conversation: false
+    mappings:
+      - type: from_entity
+        entity: characters
 
 responses:
   utter_greet:
-    - text: "Hello! I'm here to help you find your next great book. What are you looking for?"
+    - text: "Hello! I'm your book recommendation assistant. How can I help you find your next great read?"
     - text: "Hi there! Looking for a book? I can help you search by genre, author, title, rating, and more!"
-
+  
   utter_goodbye:
     - text: "Happy reading! Come back anytime you need a book recommendation."
     - text: "Goodbye! Enjoy your book and see you next time!"
-
+  
   utter_ask_genre:
     - text: "What genre are you interested in? I can suggest Fiction, Fantasy, Mystery, Romance, Thriller, Science Fiction, History, and many more!"
-
+  
   utter_ask_more_info:
     - text: "I'd love to help! Could you tell me more? For example, a genre, author, title, or page length?"
   
@@ -66,12 +130,6 @@ responses:
     - text: "Alright, stopping here. Feel free to ask me anything anytime!"
 
 actions:
-  - action_recommend_book
-  - action_find_by_title
-  - action_find_by_author
-  - action_find_by_page_range
-  - action_find_by_page
-  - action_find_by_author_and_pages
-  - action_find_by_rating
-  - action_find_by_character
+  - action_search_books
+  - action_reset_slots
 

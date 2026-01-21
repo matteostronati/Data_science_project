@@ -15,3 +15,9 @@ rules:
     steps:
       - intent: stop
       - action: utter_stop
+
+  - rule: Reset slots on new search
+    steps:
+      - intent: new_search
+      - action: action_reset_slots
+      - action: utter_ask_genre

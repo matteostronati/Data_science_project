@@ -55,6 +55,19 @@ nlu:
     - please stop
     - i want to stop
     - stop the form
+
+- intent: new_search
+  examples: |
+    - start over
+    - new search
+    - search again
+    - reset
+    - clear filters
+    - I want to search for something else
+    - start a new search
+    - forget everything
+    - clear all
+    
 - intent: find_book
   examples: |
     - I want a book 
@@ -161,20 +174,6 @@ nlu:
     - Find books about [50](num_pages) pages
     - Show books around [840](num_pages) pages
     - Search for books roughly [390](num_pages) pages
-
-- intent: find_books_by_author_and_page_range
-  examples: |
-    - Find books by [Stephen King](author) with more than [450](min_num_pages) pages
-    - Show books by [Agatha Christie](author) with fewer than [250](max_num_pages) pages
-    - Find titles by [J K Rowling](author) under [400](max_num_pages) pages
-    - Show novels by [Haruki Murakami](author) over [350](min_num_pages) pages
-    - Find books by [Isaac Asimov](author) with at least [500](min_num_pages) pages
-    - Show books by [Brandon Sanderson](author) with less than [600](max_num_pages) pages
-    - Find books by [Neil Gaiman](author) no more than [220](max_num_pages) pages
-    - Show books by [Toni Morrison](author) longer than [320](min_num_pages) pages
-    - Search books by [Gabriel García Márquez](author) shorter than [200](max_num_pages) pages
-    - Show titles by [Margaret Atwood](author) with a maximum of [350](max_num_pages) pages
-    - Search for [Franz Kafka](author) books with over [150](min_num_pages) pages
 
 - intent: find_book_by_rating_range
   examples: |

@@ -1,119 +1,111 @@
-version: "2.0"
+version: "3.1"
 
 stories:
+  - story: greet and search with multiple filters
+    steps:
+      - intent: greet
+      - action: utter_greet
+      - intent: specify_genre
+        entities:
+          - genre
+      - action: action_search_books
+      - intent: find_book_by_author
+        entities:
+          - author
+      - action: action_search_books
+      - intent: affirm
+      - action: utter_ask_another
+      - intent: affirm
+      - action: action_reset_slots
+      - action: utter_ask_genre
 
-- story: greet and find book by genre
-  steps:
-    - intent: greet
-    - action: utter_greet
-    - intent: find_book
-    - action: utter_ask_genre
-    - intent: specify_genre
-      entities:
-        - genre
-    - action: action_recommend_book
-    - intent: affirm
-    - action: utter_ask_another
-    - intent: goodbye
-    - action: utter_goodbye
+  - story: direct genre search
+    steps:
+      - intent: specify_genre
+        entities:
+          - genre
+      - action: action_search_books
 
-- story: direct genre search
-  steps:
-    - intent: specify_genre
-      entities:
-        - genre
-    - action: action_recommend_book
+  - story: search by author
+    steps:
+      - intent: find_book_by_author
+        entities:
+          - author
+      - action: action_search_books
 
-- story: find book by author
-  steps:
-    - intent: greet
-    - action: utter_greet
-    - intent: find_book_by_author
-      entities:
-        - author
-    - action: action_find_by_author
-    - intent: goodbye
-    - action: utter_goodbye
+  - story: search by title
+    steps:
+      - intent: find_book_by_title
+        entities:
+          - title
+      - action: action_search_books
 
-- story: find book by title
-  steps:
-    - intent: find_book_by_title
-      entities:
-        - title
-    - action: action_find_by_title
+  - story: search by page range
+    steps:
+      - intent: find_book_by_page_range
+        entities:
+          - min_num_pages
+          - max_num_pages
+      - action: action_search_books
 
-- story: find book by page range
-  steps:
-    - intent: find_book_by_page_range
-      entities:
-        - min_num_pages
-        - max_num_pages
-    - action: action_find_by_page_range
+  - story: search by rating
+    steps:
+      - intent: find_book_by_rating_range
+        entities:
+          - min_avg_rating
+      - action: action_search_books
 
-- story: find book by exact pages
-  steps:
-    - intent: find_book_by_page
-      entities:
-        - num_pages
-    - action: action_find_by_page
+  - story: search by character
+    steps:
+      - intent: find_book_by_character
+        entities:
+          - characters
+      - action: action_search_books
 
-- story: find book by author and pages
-  steps:
-    - intent: find_books_by_author_and_page_range
-      entities:
-        - author
-        - min_num_pages
-    - action: action_find_by_author_and_pages
+  - story: user refines search with more criteria
+    steps:
+      - intent: specify_genre
+        entities:
+          - genre
+      - action: action_search_books
+      - intent: deny
+      - action: utter_ask_more_info
+      - intent: find_book_by_author
+        entities:
+          - author
+      - action: action_search_books
 
-- story: find book by rating
-  steps:
-    - intent: find_book_by_rating_range
-      entities:
-        - min_avg_rating
-    - action: action_find_by_rating
+  - story: user satisfied and wants another book
+    steps:
+      - intent: specify_genre
+        entities:
+          - genre
+      - action: action_search_books
+      - intent: affirm
+      - action: utter_ask_another
+      - intent: affirm
+      - action: action_reset_slots
+      - action: utter_ask_genre
 
-- story: find book by character
-  steps:
-    - intent: find_book_by_character
-      entities:
-        - characters
-    - action: action_find_by_character
+  - story: user wants completely new search
+    steps:
+      - intent: new_search
+      - action: action_reset_slots
+      - action: utter_ask_genre
 
-- story: user denies recommendation and wants another
-  steps:
-    - intent: specify_genre
-      entities:
-        - genre
-    - action: action_recommend_book
-    - intent: deny
-    - action: utter_ask_more_info
-    - intent: find_book_by_author
-      entities:
-        - author
-    - action: action_find_by_author
+  - story: user not satisfied tries new search
+    steps:
+      - intent: specify_genre
+        entities:
+          - genre
+      - action: action_search_books
+      - intent: deny
+      - action: utter_ask_more_info
+      - intent: new_search
+      - action: action_reset_slots
+      - action: utter_ask_genre
 
-- story: user stops search
-  steps:
-    - intent: find_book
-    - action: utter_ask_genre
-    - intent: stop
-    - action: utter_stop
-
-- story: simple goodbye
-  steps:
-    - intent: goodbye
-    - action: utter_goodbye
-
-- story: user not satisfied tries different genre
-  steps:
-    - intent: specify_genre
-      entities:
-        - genre
-    - action: action_recommend_book
-    - intent: deny
-    - action: utter_ask_genre
-    - intent: specify_genre
-      entities:
-        - genre
-    - action: action_recommend_book
-
+  - story: simple goodbye
+    steps:
+      - intent: goodbye
+      - action: utter_goodbye
