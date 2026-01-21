@@ -32,39 +32,105 @@ from rasa_sdk.events import EventType
 from rasa_sdk.executor import CollectingDispatcher
 from rasa_sdk.types import DomainDict
 
-ALLOWED_PIZZA_SIZES = ["small", "medium", "large", "extra-large", "extra large", "s", "m", "l", "xl"]
-ALLOWED_PIZZA_TYPES = ["mozzarella", "fungi", "veggie", "pepperoni", "hawaii"]
-
-class ValidateSimplePizzaForm(FormValidationAction):
+class ActionRecommendBook(Action):
+    
     def name(self) -> Text:
-        return "validate_simple_pizza_form"
+        return "action_recommend_book"
+    
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        
+        dispatcher.utter_message(text="[DEBUG] ActionRecommendBook called - would recommend a book by genre")
+        return []
 
-    def validate_pizza_size(
-        self,
-        slot_value: Any,
-        dispatcher: CollectingDispatcher,
-        tracker: Tracker,
-        domain: DomainDict,
-    ) -> Dict[Text, Any]:
-        """Validate `pizza_size` value."""
 
-        if slot_value.lower() not in ALLOWED_PIZZA_SIZES:
-            dispatcher.utter_message(text=f"We only accept pizza sizes: s/m/l/xl.")
-            return {"pizza_size": None}
-        dispatcher.utter_message(text=f"OK! You want to have a {slot_value} pizza.")
-        return {"pizza_size": slot_value}
+class ActionFindByTitle(Action):
+    
+    def name(self) -> Text:
+        return "action_find_by_title"
+    
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        
+        dispatcher.utter_message(text="[DEBUG] ActionFindByTitle called - would find book by title")
+        return []
 
-    def validate_pizza_type(
-        self,
-        slot_value: Any,
-        dispatcher: CollectingDispatcher,
-        tracker: Tracker,
-        domain: DomainDict,
-    ) -> Dict[Text, Any]:
-        """Validate `pizza_type` value."""
 
-        if slot_value not in ALLOWED_PIZZA_TYPES:
-            dispatcher.utter_message(text=f"I don't recognize that pizza. We serve {'/'.join(ALLOWED_PIZZA_TYPES)}.")
-            return {"pizza_type": None}
-        dispatcher.utter_message(text=f"OK! You want to have a {slot_value} pizza.")
-        return {"pizza_type": slot_value}
+class ActionFindByAuthor(Action):
+    
+    def name(self) -> Text:
+        return "action_find_by_author"
+    
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        
+        dispatcher.utter_message(text="[DEBUG] ActionFindByAuthor called - would find books by author")
+        return []
+
+
+class ActionFindByPageRange(Action):
+    
+    def name(self) -> Text:
+        return "action_find_by_page_range"
+    
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        
+        dispatcher.utter_message(text="[DEBUG] ActionFindByPageRange called - would find books by page range")
+        return []
+
+
+class ActionFindByPage(Action):
+    
+    def name(self) -> Text:
+        return "action_find_by_page"
+    
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        
+        dispatcher.utter_message(text="[DEBUG] ActionFindByPage called - would find books by approximate pages")
+        return []
+
+
+class ActionFindByAuthorAndPages(Action):
+    
+    def name(self) -> Text:
+        return "action_find_by_author_and_pages"
+    
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        
+        dispatcher.utter_message(text="[DEBUG] ActionFindByAuthorAndPages called - would find books by author and pages")
+        return []
+
+
+class ActionFindByRating(Action):
+    
+    def name(self) -> Text:
+        return "action_find_by_rating"
+    
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        
+        dispatcher.utter_message(text="[DEBUG] ActionFindByRating called - would find books by rating")
+        return []
+
+
+class ActionFindByCharacter(Action):
+    
+    def name(self) -> Text:
+        return "action_find_by_character"
+    
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        
+        dispatcher.utter_message(text="[DEBUG] ActionFindByCharacter called - would find books by character")
+        return []

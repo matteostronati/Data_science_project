@@ -12,12 +12,18 @@ intents:
   - stop
   - find_book
   - specify_genre
+  - find_book_by_title
+  - find_book_by_author
+  - find_book_by_page_range
+  - find_book_by_page
+  - find_books_by_author_and_page_range
+  - find_book_by_rating_range
+  - find_book_by_character
 
 entities:
   - genre
   - author
   - title
-  - year
   - max_num_pages
   - min_num_pages
   - num_pages
@@ -36,16 +42,36 @@ slots:
 responses:
   utter_greet:
     - text: "Hello! I'm here to help you find your next great book. What are you looking for?"
-  
+    - text: "Hi there! Looking for a book? I can help you search by genre, author, title, rating, and more!"
+
   utter_goodbye:
     - text: "Happy reading! Come back anytime you need a book recommendation."
+    - text: "Goodbye! Enjoy your book and see you next time!"
+
+  utter_ask_genre:
+    - text: "What genre are you interested in? I can suggest Fiction, Fantasy, Mystery, Romance, Thriller, Science Fiction, History, and many more!"
+
+  utter_ask_more_info:
+    - text: "I'd love to help! Could you tell me more? For example, a genre, author, title, or page length?"
   
-  utter_iamabot:
-    - text: "I am a book recommendation bot, powered by Rasa."
+  utter_no_results:
+    - text: "Sorry, I couldn't find any books matching your criteria. Would you like to try different filters?"
   
-  utter_ask_preferences:
-    - text: "What genre are you interested in? I can suggest Fiction, Fantasy, Mystery, Romance, Thriller, and many more!"
+  utter_ask_another:
+    - text: "Would you like another recommendation?"
+    - text: "Can I help you find something else?"
+  
+  utter_stop:
+    - text: "No problem! Let me know if you need anything else."
+    - text: "Alright, stopping here. Feel free to ask me anything anytime!"
 
 actions:
   - action_recommend_book
+  - action_find_by_title
+  - action_find_by_author
+  - action_find_by_page_range
+  - action_find_by_page
+  - action_find_by_author_and_pages
+  - action_find_by_rating
+  - action_find_by_character
 

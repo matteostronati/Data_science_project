@@ -2,127 +2,118 @@ version: "2.0"
 
 stories:
 
-- story: happy path
+- story: greet and find book by genre
   steps:
-  - intent: greet
-  - action: utter_greet
-  - intent: mood_great
-  - action: utter_happy
-
-- story: sad path 1
-  steps:
-  - intent: greet
-  - action: utter_greet
-  - intent: mood_unhappy
-  - action: utter_cheer_up
-  - action: utter_did_that_help
-  - intent: affirm
-  - action: utter_happy
-
-- story: sad path 2
-  steps:
-  - intent: greet
-  - action: utter_greet
-  - intent: mood_unhappy
-  - action: utter_cheer_up
-  - action: utter_did_that_help
-  - intent: deny
-  - action: utter_goodbye
-
-- story: interactive_story_1
-  steps:
-  - intent: greet
-  - action: utter_greet
-  - intent: buy_pizza
-  - action: simple_pizza_form
-  - active_loop: simple_pizza_form
-  - slot_was_set:
-    - requested_slot: pizza_size
-  - slot_was_set:
-    - pizza_size: large
-  - slot_was_set:
-    - pizza_size: large
-  - slot_was_set:
-    - requested_slot: pizza_type
-  - slot_was_set:
-    - pizza_type: hawaiii
-  - slot_was_set:
-    - pizza_type: null
-  - slot_was_set:
-    - requested_slot: pizza_type
-  - slot_was_set:
-    - pizza_type: hawai
-  - slot_was_set:
-    - pizza_type: null
-  - slot_was_set:
-    - requested_slot: pizza_type
-  - slot_was_set:
-    - pizza_type: hawaii
-  - slot_was_set:
-    - pizza_type: hawaii
-  - slot_was_set:
-    - requested_slot: null
-  - active_loop: null
-  - action: utter_submit
-  - action: utter_pizza_slots
-  - intent: goodbye
-  - action: utter_goodbye
-
-- story: User interrupts the form and doesn't want to continue
-  steps:
-  - intent: greet
-  - action: utter_greet
-  - intent: buy_pizza
-  - action: simple_pizza_form
-  - active_loop: simple_pizza_form
-  - intent: stop
-  - action: utter_ask_continue
-  - or: 
-    - intent: stop
+    - intent: greet
+    - action: utter_greet
+    - intent: find_book
+    - action: utter_ask_genre
+    - intent: specify_genre
+      entities:
+        - genre
+    - action: action_recommend_book
     - intent: affirm
-  - action: action_deactivate_loop
-  - active_loop: null
+    - action: utter_ask_another
+    - intent: goodbye
+    - action: utter_goodbye
 
-- story: interactive_story_2
+- story: direct genre search
   steps:
-  - intent: greet
-  - action: utter_greet
-  - intent: buy_pizza
-  - action: simple_pizza_form
-  - active_loop: simple_pizza_form
-  - slot_was_set:
-    - requested_slot: pizza_size
-  - intent: stop
-  - action: utter_ask_continue
-  - intent: stop
-  - action: action_deactivate_loop
-  - active_loop: null
-  - slot_was_set:
-    - requested_slot: null
-  - intent: goodbye
-  - action: utter_goodbye
+    - intent: specify_genre
+      entities:
+        - genre
+    - action: action_recommend_book
 
-- story: interactive_story_3
+- story: find book by author
   steps:
-  - intent: greet
-  - action: utter_greet
-  - intent: buy_pizza
-  - action: simple_pizza_form
-  - active_loop: simple_pizza_form
-  - slot_was_set:
-    - requested_slot: pizza_size
-  - slot_was_set:
-    - pizza_size: s
-  - slot_was_set:
-    - pizza_size: s
-  - slot_was_set:
-    - requested_slot: pizza_type
-  - intent: stop
-  - action: utter_ask_continue
-  - intent: affirm
-  - action: action_deactivate_loop
-  - active_loop: null
-  - slot_was_set:
-    - requested_slot: null
-  - intent: goodbye
-  - action: utter_goodbye
+    - intent: greet
+    - action: utter_greet
+    - intent: find_book_by_author
+      entities:
+        - author
+    - action: action_find_by_author
+    - intent: goodbye
+    - action: utter_goodbye
+
+- story: find book by title
+  steps:
+    - intent: find_book_by_title
+      entities:
+        - title
+    - action: action_find_by_title
+
+- story: find book by page range
+  steps:
+    - intent: find_book_by_page_range
+      entities:
+        - min_num_pages
+        - max_num_pages
+    - action: action_find_by_page_range
+
+- story: find book by exact pages
+  steps:
+    - intent: find_book_by_page
+      entities:
+        - num_pages
+    - action: action_find_by_page
+
+- story: find book by author and pages
+  steps:
+    - intent: find_books_by_author_and_page_range
+      entities:
+        - author
+        - min_num_pages
+    - action: action_find_by_author_and_pages
+
+- story: find book by rating
+  steps:
+    - intent: find_book_by_rating_range
+      entities:
+        - min_avg_rating
+    - action: action_find_by_rating
+
+- story: find book by character
+  steps:
+    - intent: find_book_by_character
+      entities:
+        - characters
+    - action: action_find_by_character
+
+- story: user denies recommendation and wants another
+  steps:
+    - intent: specify_genre
+      entities:
+        - genre
+    - action: action_recommend_book
+    - intent: deny
+    - action: utter_ask_more_info
+    - intent: find_book_by_author
+      entities:
+        - author
+    - action: action_find_by_author
+
+- story: user stops search
+  steps:
+    - intent: find_book
+    - action: utter_ask_genre
+    - intent: stop
+    - action: utter_stop
+
+- story: simple goodbye
+  steps:
+    - intent: goodbye
+    - action: utter_goodbye
+
+- story: user not satisfied tries different genre
+  steps:
+    - intent: specify_genre
+      entities:
+        - genre
+    - action: action_recommend_book
+    - intent: deny
+    - action: utter_ask_genre
+    - intent: specify_genre
+      entities:
+        - genre
+    - action: action_recommend_book
+
