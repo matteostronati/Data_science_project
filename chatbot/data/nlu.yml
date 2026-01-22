@@ -1,213 +1,319 @@
 version: "2.0"
 nlu:
-- intent: greet
-  examples: |
-    - hey
-    - hello
-    - hi
-    - hello there
-    - good morning
-    - good evening
-    - hey there
-    - let's go
-    - hey dude
-    - goodmorning
-    - goodevening
-    - good afternoon
-    - yo
-    - hello world
-    - hi there
-- intent: goodbye
-  examples: |
-    - cu
-    - good by
-    - cee you later
-    - good night
-    - bye
-    - goodbye
-    - have a nice day
-    - see you around
-    - bye bye
-    - see you later
-    - thanks, goodbye
-- intent: affirm
-  examples: |
-    - yes
-    - y
-    - indeed
-    - of course
-    - that sounds good
-    - correct
-    - /affirm
-- intent: deny
-  examples: |
-    - no
-    - n
-    - never
-    - I don't think so
-    - don't like that
-    - no way
-    - not really
-- intent: stop
-  examples: |
-    - stop
-    - nevermind
-    - please stop
-    - i want to stop
-    - stop the form
+  - intent: greet
+    examples: |
+      - hey
+      - hello
+      - hi
+      - hello there
+      - good morning
+      - good evening
+      - hey there
+      - let's go
+      - hey dude
+      - goodmorning
+      - goodevening
+      - good afternoon
+      - yo
+      - hello world
+      - hi there
+  - intent: goodbye
+    examples: |
+      - cu
+      - good by
+      - cee you later
+      - good night
+      - bye
+      - goodbye
+      - have a nice day
+      - see you around
+      - bye bye
+      - see you later
+      - thanks, goodbye
+  - intent: affirm
+    examples: |
+      - yes
+      - y
+      - indeed
+      - of course
+      - that sounds good
+      - correct
+      - /affirm
+  - intent: deny
+    examples: |
+      - no
+      - n
+      - never
+      - I don't think so
+      - don't like that
+      - no way
+      - not really
+  - intent: stop
+    examples: |
+      - stop
+      - nevermind
+      - please stop
+      - i want to stop
+      - stop the form
 
-- intent: new_search
-  examples: |
-    - start over
-    - new search
-    - search again
-    - reset
-    - clear filters
-    - I want to search for something else
-    - start a new search
-    - forget everything
-    - clear all
-    
-- intent: find_book
-  examples: |
-    - I want a book 
-    - I want something to read
-    - I'm looking for something to read
-    - suggest a book
-    - can you recommend a book
-    - I need a book recommendation
-    - what book should I read
-    - help me find a book
-    - I'm searching for a good book
-    - give me a book suggestion
-    - looking for my next read
-    - what should I read next
-    - I want something new to read
-    - can you suggest something
-    - I'd like a book recommendation
-    - find me a book to read
-    - any book recommendations
-    - show me some books
-    - I need reading suggestions
+  - intent: new_search
+    examples: |
+      - start over
+      - new search
+      - search again
+      - reset
+      - clear filters
+      - I want to search for something else
+      - start a new search
+      - forget everything
+      - clear all
 
-- intent: specify_genre
-  examples: |
-    - I like [fiction](genre)
-    - something in [fantasy](genre)
-    - a [mystery](genre) book
-    - [romance](genre) novels
-    - I prefer [thriller](genre)
-    - looking for [horror](genre)
-    - [science fiction](genre) please
-    - a [historical fiction](genre) would be nice
-    - I enjoy [young adult](genre) books
-    - [classics](genre) literature
-    - [nonfiction](genre) books
-    - something about [history](genre)
-    - I want a book talking about [sports](genre)
+  - intent: find_book
+    examples: |
+      - I want a book 
+      - I want something to read
+      - I'm looking for something to read
+      - suggest a book
+      - can you recommend a book
+      - I need a book recommendation
+      - what book should I read
+      - help me find a book
+      - I'm searching for a good book
+      - give me a book suggestion
+      - looking for my next read
+      - what should I read next
+      - I want something new to read
+      - can you suggest something
+      - I'd like a book recommendation
+      - find me a book to read
+      - any book recommendations
+      - show me some books
+      - I need reading suggestions
 
-- intent: find_book_by_title
-  examples: |
-    - Find [The Hobbit](title)
-    - Search for [1984](title)
-    - I’m looking for [Pride and Prejudice](title)
-    - Do you have [To Kill a Mockingbird](title)?
-    - Can you look up [The Great Gatsby](title) for me?
-    - Show me the book titled [Dune](title)
-    - I want to read [The Catcher in the Rye](title)
-    - Please find [The Lord of the Rings](title)
-    - Locate [The Name of the Rose](title)
-    - Find the title [Brave New World](title)
-    - Is [The Alchemist](title) available?
-    - Pull up [The Da Vinci Code](title)
-    - Get me details for [Harry Potter and the Sorcerer’s Stone](title)
-    - I need the book called [The Shining](title)
-    - Search the catalog for [The Girl with the Dragon Tattoo](title)
+  - intent: specify_genre
+    examples: |
+      - I like [fiction](genre)
+      - something in [fantasy](genre)
+      - a [mystery](genre) book
+      - [romance](genre) novels
+      - I prefer [thriller](genre)
+      - looking for [horror](genre)
+      - [science fiction](genre) please
+      - a [historical fiction](genre) would be nice
+      - I enjoy [young adult](genre) books
+      - [classics](genre) literature
+      - [nonfiction](genre) books
+      - something about [history](genre)
+      - I want a book talking about [sports](genre)
 
-- intent: find_book_by_author
-  examples: |
-    - Find books by [Stephen King](author)
-    - Show me titles written by [Agatha Christie](author)
-    - Search for books from [George Orwell](author)
-    - Do you have any books by [J.K. Rowling](author)?
-    - List novels by [Haruki Murakami](author)
-    - Find all books authored by [Jane Austen](author)
-    - Look up works by [Isaac Asimov](author)
-    - Show books by [Brandon Sanderson](author)
-    - Search the catalog for [Ernest Hemingway](author)
-    - What books did [Neil Gaiman](author) write?
-    - Find books written by [Toni Morrison](author)
-    - Get me books from [Gabriel García Márquez](author)
-    - Show me novels by [Umberto Eco](author)
-    - Find books by [Margaret Atwood](author)
-    - Search for [Franz Kafka](author) books
+  - intent: find_book_by_title
+    examples: |
+      - Find [The Hobbit](title)
+      - Search for [1984](title)
+      - I’m looking for [Pride and Prejudice](title)
+      - Do you have [To Kill a Mockingbird](title)?
+      - Can you look up [The Great Gatsby](title) for me?
+      - Show me the book titled [Dune](title)
+      - I want to read [The Catcher in the Rye](title)
+      - Please find [The Lord of the Rings](title)
+      - Locate [The Name of the Rose](title)
+      - Find the title [Brave New World](title)
+      - Is [The Alchemist](title) available?
+      - Pull up [The Da Vinci Code](title)
+      - Get me details for [Harry Potter and the Sorcerer’s Stone](title)
+      - I need the book called [The Shining](title)
+      - Search the catalog for [The Girl with the Dragon Tattoo](title)
+      - I want to find [Moby Dick](title)
+      - Do you have [War and Peace](title)?
+      - Search for [The Odyssey](title)
+      - Find [Ulysses](title) please
+      - I am interested in [The Brothers Karamazov](title)
+      - Show me [Crime and Punishment](title)
+      - Look for [One Hundred Years of Solitude](title)
+      - Can you find [The Divine Comedy](title)?
+      - I'm searching for [Thinking, Fast and Slow](title)
+      - Get [Sapiens: A Brief History of Humankind](title)
+      - I want [Becoming](title)
+      - Find [Educated](title)
+      - Search for [The Silent Patient](title)
+      - Do you have [Where the Crawdads Sing](title)?
+      - I need to find [Normal People](title)
+      - Locate [Atomic Habits](title)
+      - Find book [The Power of Habit](title)
+      - Show [Deep Work](title)
+      - I want to read [Steve Jobs](title)
+      - Search for [Elon Musk](title)
+      - Find [Shoe Dog](title)
+      - I'm looking for the book [Bad Blood](title)
+      - Do you have [The Immortal Life of Henrietta Lacks](title)
+      - Find [Gone Girl](title)
+      - Search [The Martian](title)
+      - I want [Ready Player One](title)
+      - Can you get [Project Hail Mary](title)?
+      - Find [Dark Matter](title)
+      - Look up [Recursion](title)
+      - Search for [The Three-Body Problem](title)
+      - I need [Snow Crash](title)
+      - Find [Neuromancer](title)
+      - Do you have [Foundation](title)?
+      - Search [Hyperion](title)
+      - I want to find [Frankenstein](title)
+      - Find [Dracula](title)
+      - Search for [The Picture of Dorian Gray](title)
+      - Show me [Jane Eyre](title)
+      - I'm looking for [Wuthering Heights](title)
+      - Do you have [Little Women](title)?
+      - Find [Anna Karenina](title)
+      - Search [Madame Bovary](title)
+      - I want [Les Misérables](title)
+      - Find [Great Expectations](title)
+      - Search for [A Tale of Two Cities](title)
+      - I need [Don Quixote](title)
+      - Find [The Stranger](title)
+      - Search [The Metamorphosis](title)
+      - I want to read [The Little Prince](title)
+      - Find [The Giver](title)
+      - Search for [The Book Thief](title)
+      - Do you have [The Kite Runner](title)?
+      - Find [Life of Pi](title)
+      - Search [The Hunger Games](title)
+      - I want [Catching Fire](title)
+      - Find [Mockingjay](title)
+      - Search for [Divergent](title)
+      - I need [Twilight](title)
+      - Find [New Moon](title)
+      - Search [Eclipse](title)
+      - I want [Breaking Dawn](title)
+      - Find [A Game of Thrones](title)
+      - Search for [A Clash of Kings](title)
+      - Do you have [A Storm of Swords](title)?
+      - Find [A Feast for Crows](title)
+      - Search [A Dance with Dragons](title)
+      - I want to find [The Fellowship of the Ring](title)
+      - Find [The Two Towers](title)
+      - Search for [The Return of the King](title)
+      - I'm looking for [The Colour of Magic](title)
+      - Find [Guards! Guards!](title)
+      - Search [Mort](title)
+      - I want [Good Omens](title)
+      - Find [American Gods](title)
+      - Search for [Coraline](title)
+      - Do you have [Stardust](title)?
+      - Find [Neverwhere](title)
+      - Search [The Graveyard Book](title)
+      - I need [Percy Jackson and the Lightning Thief](title)
+      - Find [The Sea of Monsters](title)
+      - Search for [The Titan's Curse](title)
+      - I want [The Battle of the Labyrinth](title)
+      - Find [The Last Olympian](title)
+      - Search [Harry Potter and the Chamber of Secrets](title)
+      - I'm looking for [Harry Potter and the Prisoner of Azkaban](title)
+      - Find [Harry Potter and the Goblet of Fire](title)
+      - Search for [Harry Potter and the Order of the Phoenix](title)
+      - Do you have [Harry Potter and the Half-Blood Prince](title)?
+      - Find [Harry Potter and the Deathly Hallows](title)
+      - Search [Fantastic Beasts and Where to Find Them](title)
+      - I want [Quidditch Through the Ages](title)
+      - Find [The Tales of Beedle the Bard](title)
+      - Search for [The Cuckoo's Calling](title)
+      - I need [The Silkworm](title)
+      - Find [Career of Evil](title)
+      - Search [Lethal White](title)
+      - I want to read [Troubled Blood](title)
+      - Find [The Casual Vacancy](title)
+      - Search for [Very Good Lives](title)
+      - Do you have [The Ickabog](title)?
+      - Find [The Christmas Pig](title)
+      - Search [It](title)
+      - I want [The Stand](title)
+      - Find [Misery](title)
+      - Search for [Carrie](title)
+      - I need [Salem's Lot](title)
+      - Find [Pet Sematary](title)
 
-- intent: find_book_by_page_range
-  examples: |
-    - Find books under [200](max_num_pages) pages
-    - Show books with fewer than [150](max_num_pages) pages
-    - Search for books with less than [300](max_num_pages) pages
-    - Find books over [500](min_num_pages) pages
-    - Show books with more than [400](min_num_pages) pages
-    - Search books longer than [600](min_num_pages) pages
-    - Find books between [200](min_num_pages) and [350](max_num_pages) pages
-    - Show books with [250](min_num_pages) to [450](max_num_pages) pages
-    - Search for books ranging from [100](min_num_pages) to [200](max_num_pages) pages
-    - Find short books max [120](max_num_pages) pages
-    - Find long books min [700](min_num_pages) pages
-    - Show books between [50](min_num_pages) and [120](max_num_pages) pages
+  - intent: find_book_by_author
+    examples: |
+      - Find books by [Stephen King](author)
+      - Show me titles written by [Agatha Christie](author)
+      - Search for books from [George Orwell](author)
+      - Do you have any books by [J.K. Rowling](author)?
+      - List novels by [Haruki Murakami](author)
+      - Find all books authored by [Jane Austen](author)
+      - Look up works by [Isaac Asimov](author)
+      - Show books by [Brandon Sanderson](author)
+      - Search the catalog for [Ernest Hemingway](author)
+      - What books did [Neil Gaiman](author) write?
+      - Find books written by [Toni Morrison](author)
+      - Get me books from [Gabriel García Márquez](author)
+      - Show me novels by [Umberto Eco](author)
+      - Find books by [Margaret Atwood](author)
+      - Search for [Franz Kafka](author) books
 
-- intent: find_book_by_page
-  examples: |
-    - Find books around [120](num_pages) pages
-    - Show books that are about [250](num_pages) pages long
-    - Search for books close to [360](num_pages) pages
-    - Find books roughly [90](num_pages) pages
-    - Show me books near [410](num_pages) pages
-    - Search books approximately [600](num_pages) pages long
-    - Find books with about [275](num_pages) pages
-    - Show books that are roughly [150](num_pages) pages
-    - Search for books around [725](num_pages) pages
-    - Find books close to [200](num_pages) pages long
-    - Show me books approximately [330](num_pages) pages
-    - Search books near [480](num_pages) pages
-    - Find books about [50](num_pages) pages
-    - Show books around [840](num_pages) pages
-    - Search for books roughly [390](num_pages) pages
+  - intent: find_book_by_page_range
+    examples: |
+      - Find books under [200](max_num_pages) pages
+      - Show books with fewer than [150](max_num_pages) pages
+      - Search for books with less than [300](max_num_pages) pages
+      - Find books over [500](min_num_pages) pages
+      - Show books with more than [400](min_num_pages) pages
+      - Search books longer than [600](min_num_pages) pages
+      - Find books between [200](min_num_pages) and [350](max_num_pages) pages
+      - Show books with [250](min_num_pages) to [450](max_num_pages) pages
+      - Search for books ranging from [100](min_num_pages) to [200](max_num_pages) pages
+      - Find short books max [120](max_num_pages) pages
+      - Find long books min [700](min_num_pages) pages
+      - Show books between [50](min_num_pages) and [120](max_num_pages) pages
 
-- intent: find_book_by_rating_range
-  examples: |
-    - Find books with rating greater than [4.5](min_avg_rating)
-    - Show books with average rating above [4.2](min_avg_rating)
-    - Search for books rated higher than [4.7](min_avg_rating)
-    - Find books with rating lower than [3.0](max_avg_rating)
-    - Show books with average rating under [3.6](max_avg_rating)
-    - Search books rated below [2.5](max_avg_rating)
-    - Find books with rating around [4.0](avg_rating)
-    - Show books with average rating close to [3.8](avg_rating)
-    - Search for books with rating approximately [4.4](avg_rating)
-    - Find books with rating not less than [3.9](min_avg_rating)
-    - Show books with rating at most [4.1](max_avg_rating)
-    - Search books with rating no more than [2.0](max_avg_rating)
-    - Find books rated at least [4.1](min_avg_rating)
-    - Show books with rating near [3.2](avg_rating)
-    - Search for books with average rating just over [3.5](min_avg_rating)
+  - intent: find_book_by_page
+    examples: |
+      - Find books around [120](num_pages) pages
+      - Show books that are about [250](num_pages) pages long
+      - Search for books close to [360](num_pages) pages
+      - Find books roughly [90](num_pages) pages
+      - Show me books near [410](num_pages) pages
+      - Search books approximately [600](num_pages) pages long
+      - Find books with about [275](num_pages) pages
+      - Show books that are roughly [150](num_pages) pages
+      - Search for books around [725](num_pages) pages
+      - Find books close to [200](num_pages) pages long
+      - Show me books approximately [330](num_pages) pages
+      - Search books near [480](num_pages) pages
+      - Find books about [50](num_pages) pages
+      - Show books around [840](num_pages) pages
+      - Search for books roughly [390](num_pages) pages
 
-- intent: find_book_by_character
-  examples: |
-    - Find books featuring [Harry Potter](characters)
-    - Show books with the character [Sherlock Holmes](characters)
-    - Search books that include [Hermione Granger](characters)
-    - Find titles where [Katniss Everdeen](characters) appears
-    - Show me books with [Frodo Baggins](characters)
-    - Search for books featuring [Elizabeth Bennet](characters)
-    - Find books with [Jay Gatsby](characters)
-    - Show titles with [Atticus Finch](characters)
-    - Search books that have [Hercule Poirot](characters)
-    - Find books featuring [Bilbo Baggins](characters)
-    - Show books that include [Dracula](characters)
-    - Search for books with [Alice](characters)
-    - Find books where [Winston Smith](characters) is a main character
-    - Show books featuring [Holden Caulfield](characters)
-    - Search titles with the character [Jo March](characters)
+  - intent: find_book_by_rating_range
+    examples: |
+      - Find books with rating greater than [4.5](min_avg_rating)
+      - Show books with average rating above [4.2](min_avg_rating)
+      - Search for books rated higher than [4.7](min_avg_rating)
+      - Find books with rating lower than [3.0](max_avg_rating)
+      - Show books with average rating under [3.6](max_avg_rating)
+      - Search books rated below [2.5](max_avg_rating)
+      - Find books with rating around [4.0](avg_rating)
+      - Show books with average rating close to [3.8](avg_rating)
+      - Search for books with rating approximately [4.4](avg_rating)
+      - Find books with rating not less than [3.9](min_avg_rating)
+      - Show books with rating at most [4.1](max_avg_rating)
+      - Search books with rating no more than [2.0](max_avg_rating)
+      - Find books rated at least [4.1](min_avg_rating)
+      - Show books with rating near [3.2](avg_rating)
+      - Search for books with average rating just over [3.5](min_avg_rating)
 
+  - intent: find_book_by_character
+    examples: |
+      - Find books featuring [Harry Potter](characters)
+      - Show books with the character [Sherlock Holmes](characters)
+      - Search books that include [Hermione Granger](characters)
+      - Find titles where [Katniss Everdeen](characters) appears
+      - Show me books with [Frodo Baggins](characters)
+      - Search for books featuring [Elizabeth Bennet](characters)
+      - Find books with [Jay Gatsby](characters)
+      - Show titles with [Atticus Finch](characters)
+      - Search books that have [Hercule Poirot](characters)
+      - Find books featuring [Bilbo Baggins](characters)
+      - Show books that include [Dracula](characters)
+      - Search for books with [Alice](characters)
+      - Find books where [Winston Smith](characters) is a main character
+      - Show books featuring [Holden Caulfield](characters)
+      - Search titles with the character [Jo March](characters)
