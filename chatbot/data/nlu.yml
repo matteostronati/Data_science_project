@@ -138,98 +138,6 @@ nlu:
       - Search for [The Silent Patient](title)
       - Do you have [Where the Crawdads Sing](title)?
       - I need to find [Normal People](title)
-      - Locate [Atomic Habits](title)
-      - Find book [The Power of Habit](title)
-      - Show [Deep Work](title)
-      - I want to read [Steve Jobs](title)
-      - Search for [Elon Musk](title)
-      - Find [Shoe Dog](title)
-      - I'm looking for the book [Bad Blood](title)
-      - Do you have [The Immortal Life of Henrietta Lacks](title)
-      - Find [Gone Girl](title)
-      - Search [The Martian](title)
-      - I want [Ready Player One](title)
-      - Can you get [Project Hail Mary](title)?
-      - Find [Dark Matter](title)
-      - Look up [Recursion](title)
-      - Search for [The Three-Body Problem](title)
-      - I need [Snow Crash](title)
-      - Find [Neuromancer](title)
-      - Do you have [Foundation](title)?
-      - Search [Hyperion](title)
-      - I want to find [Frankenstein](title)
-      - Find [Dracula](title)
-      - Search for [The Picture of Dorian Gray](title)
-      - Show me [Jane Eyre](title)
-      - I'm looking for [Wuthering Heights](title)
-      - Do you have [Little Women](title)?
-      - Find [Anna Karenina](title)
-      - Search [Madame Bovary](title)
-      - I want [Les Misérables](title)
-      - Find [Great Expectations](title)
-      - Search for [A Tale of Two Cities](title)
-      - I need [Don Quixote](title)
-      - Find [The Stranger](title)
-      - Search [The Metamorphosis](title)
-      - I want to read [The Little Prince](title)
-      - Find [The Giver](title)
-      - Search for [The Book Thief](title)
-      - Do you have [The Kite Runner](title)?
-      - Find [Life of Pi](title)
-      - Search [The Hunger Games](title)
-      - I want [Catching Fire](title)
-      - Find [Mockingjay](title)
-      - Search for [Divergent](title)
-      - I need [Twilight](title)
-      - Find [New Moon](title)
-      - Search [Eclipse](title)
-      - I want [Breaking Dawn](title)
-      - Find [A Game of Thrones](title)
-      - Search for [A Clash of Kings](title)
-      - Do you have [A Storm of Swords](title)?
-      - Find [A Feast for Crows](title)
-      - Search [A Dance with Dragons](title)
-      - I want to find [The Fellowship of the Ring](title)
-      - Find [The Two Towers](title)
-      - Search for [The Return of the King](title)
-      - I'm looking for [The Colour of Magic](title)
-      - Find [Guards! Guards!](title)
-      - Search [Mort](title)
-      - I want [Good Omens](title)
-      - Find [American Gods](title)
-      - Search for [Coraline](title)
-      - Do you have [Stardust](title)?
-      - Find [Neverwhere](title)
-      - Search [The Graveyard Book](title)
-      - I need [Percy Jackson and the Lightning Thief](title)
-      - Find [The Sea of Monsters](title)
-      - Search for [The Titan's Curse](title)
-      - I want [The Battle of the Labyrinth](title)
-      - Find [The Last Olympian](title)
-      - Search [Harry Potter and the Chamber of Secrets](title)
-      - I'm looking for [Harry Potter and the Prisoner of Azkaban](title)
-      - Find [Harry Potter and the Goblet of Fire](title)
-      - Search for [Harry Potter and the Order of the Phoenix](title)
-      - Do you have [Harry Potter and the Half-Blood Prince](title)?
-      - Find [Harry Potter and the Deathly Hallows](title)
-      - Search [Fantastic Beasts and Where to Find Them](title)
-      - I want [Quidditch Through the Ages](title)
-      - Find [The Tales of Beedle the Bard](title)
-      - Search for [The Cuckoo's Calling](title)
-      - I need [The Silkworm](title)
-      - Find [Career of Evil](title)
-      - Search [Lethal White](title)
-      - I want to read [Troubled Blood](title)
-      - Find [The Casual Vacancy](title)
-      - Search for [Very Good Lives](title)
-      - Do you have [The Ickabog](title)?
-      - Find [The Christmas Pig](title)
-      - Search [It](title)
-      - I want [The Stand](title)
-      - Find [Misery](title)
-      - Search for [Carrie](title)
-      - I need [Salem's Lot](title)
-      - Find [Pet Sematary](title)
 
   - intent: find_book_by_author
     examples: |
@@ -248,6 +156,21 @@ nlu:
       - Show me novels by [Umberto Eco](author)
       - Find books by [Margaret Atwood](author)
       - Search for [Franz Kafka](author) books
+      - I want books by [Charles Dickens](author)
+      - Do you have [Mark Twain](author) novels?
+      - List books by [Virginia Woolf](author)
+      - Show works of [Fyoor Dostoevsky](author)
+      - Find titles by [Leo Tolstoy](author)
+      - Search for [C.S. Lewis](author)
+      - I need books by [Roald Dahl](author)
+      - Find me something by [Gillian Flynn](author)
+      - Do you have books by [Dan Brown](author)?
+      - Show me works by [Ken Follett](author)
+      - Find books authored by [Isabel Allende](author)
+      - Search for the author [Paulo Coelho](author)
+      - List books from [Suzanne Collins](author)
+      - I want to read [Khaled Hosseini](author)
+      - Find novels by [John Green](author)
 
   - intent: find_book_by_page_range
     examples: |
@@ -263,6 +186,24 @@ nlu:
       - Find short books max [120](max_num_pages) pages
       - Find long books min [700](min_num_pages) pages
       - Show books between [50](min_num_pages) and [120](max_num_pages) pages
+      - I want a book with at least [300](min_num_pages) pages
+      - Find me a book shorter than [180](max_num_pages) pages
+      - Search for novels between [300](min_num_pages) and [500](max_num_pages) pages
+      - Show books with minimum [600](min_num_pages) pages
+      - Find books with maximum [250](max_num_pages) pages.
+      - I need a book with more than [800](min_num_pages) pages
+      - Look for books with less than [100](max_num_pages) pages
+      - Find titles between [400](min_num_pages) and [600](max_num_pages) pages
+      - Show me valid options for books under [150](max_num_pages) pages
+      - Search reads over [450](min_num_pages) pages
+      - Find valid books between [100](min_num_pages) and [900](max_num_pages) pages
+      - I want something with at least [200](min_num_pages) pages but less than [400](max_num_pages)
+      - Find books exceeding [1000](min_num_pages) pages
+      - Show items below [50](max_num_pages) pages
+      - Search for a range of [200](min_num_pages) to [300](max_num_pages) pages
+      - Find books greater than [350](min_num_pages) pages
+      - I want to read a book with less than [220](max_num_pages) pages
+      - Show titles ranging from [500](min_num_pages) to [700](max_num_pages) pages
 
   - intent: find_book_by_page
     examples: |
@@ -281,6 +222,21 @@ nlu:
       - Find books about [50](num_pages) pages
       - Show books around [840](num_pages) pages
       - Search for books roughly [390](num_pages) pages
+      - I want a book with [300](num_pages) pages
+      - Find something with [400](num_pages) pages
+      - Search for a [500](num_pages) page book
+      - Do you have a book with [200](num_pages) pages?
+      - Show books that have [100](num_pages) pages
+      - Find novels with [350](num_pages) pages
+      - I need a book with [600](num_pages) pages
+      - Search for titles with [150](num_pages) pages
+      - Find books of [250](num_pages) pages
+      - Show me a [450](num_pages) page novel
+      - I'm looking for a book with [800](num_pages) pages
+      - Find books lasting [320](num_pages) pages
+      - Search near [180](num_pages) pages
+      - Find books with exactly [700](num_pages) pages
+      - Show items with [220](num_pages) pages
 
   - intent: find_book_by_rating_range
     examples: |
@@ -293,12 +249,27 @@ nlu:
       - Find books with rating around [4.0](avg_rating)
       - Show books with average rating close to [3.8](avg_rating)
       - Search for books with rating approximately [4.4](avg_rating)
-      - Find books with rating not less than [3.9](min_avg_rating)
+      - Find books with rating no less than [3.9](min_avg_rating)
       - Show books with rating at most [4.1](max_avg_rating)
       - Search books with rating no more than [2.0](max_avg_rating)
       - Find books rated at least [4.1](min_avg_rating)
       - Show books with rating near [3.2](avg_rating)
       - Search for books with average rating just over [3.5](min_avg_rating)
+      - Find books with a score of [5.0](avg_rating)
+      - Show books rated better than [3.8](min_avg_rating)
+      - Search for highly rated books above [4.8](min_avg_rating)
+      - I want a book with rating [4.3](avg_rating)
+      - Find poor books rated under [2.0](max_avg_rating)
+      - Show me books with rating between [3.0](min_avg_rating) and [4.0](max_avg_rating)
+      - Search for average rating of [3.5](avg_rating)
+      - Find books with at least [4.0](min_avg_rating) stars
+      - Show novels rated lower than [3.5](max_avg_rating)
+      - Search books with rating greater or equal to [4.2](min_avg_rating)
+      - Find books with about [2.5](avg_rating) stars
+      - I want books rated [3.9](avg_rating)
+      - Search for books having less than [3.0](max_avg_rating) rating
+      - Find items with rating over [4.6](min_avg_rating)
+      - Show books with max rating [3.5](max_avg_rating)
 
   - intent: find_book_by_character
     examples: |
@@ -317,3 +288,18 @@ nlu:
       - Find books where [Winston Smith](characters) is a main character
       - Show books featuring [Holden Caulfield](characters)
       - Search titles with the character [Jo March](characters)
+      - Find books with [Gandalf](characters)
+      - Show stories about [Peter Pan](characters)
+      - Search for books with [Scarlett O'Hara](characters)
+      - Find titles featuring [Huckleberry Finn](characters)
+      - Show me books with [Jane Eyre](characters)
+      - Search books including [Captain Ahab](characters)
+      - Find books with [Hannibal Lecter](characters)
+      - Show novels featuring [Lisbeth Salander](characters)
+      - Search for [Jon Snow](characters) in books
+      - I want books with [Daenerys Targaryen](characters)
+      - Find books with [Edward Cullen](characters)
+      - Show stories featuring [Bella Swan](characters)
+      - Search books with [Percy Jackson](characters)
+      - Find titles with [Annabeth Chase](characters)
+      - Show me books with [Aslan](characters)
