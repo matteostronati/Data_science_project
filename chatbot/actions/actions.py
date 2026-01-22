@@ -26,11 +26,13 @@
 #
 #         return []
 from typing import Text, List, Any, Dict
-
+import pandas as pd
 from rasa_sdk import Tracker, FormValidationAction, Action
 from rasa_sdk.events import EventType, SlotSet
 from rasa_sdk.executor import CollectingDispatcher
 from rasa_sdk.types import DomainDict
+
+df = pd.read_csv(r"C:\Users\matte\Desktop\Data_science_project\chatbot\dataset\goodreads_chatbot_cleaned.csv")
 
 class ActionSearchBooks(Action):
     """Action unica che cerca libri combinando tutti i criteri disponibili"""
@@ -54,37 +56,247 @@ class ActionSearchBooks(Action):
         max_rating = tracker.get_slot("max_avg_rating")
         characters = tracker.get_slot("characters")
         
-        # Costruisci messaggio debug con criteri attivi
-        active_filters = []
-        if genre:
-            active_filters.append(f"Genre: {genre}")
-        if title:
-            active_filters.append(f"Title: {title}")
-        if author:
-            active_filters.append(f"Author: {author}")
-        if num_pages:
-            active_filters.append(f"Pages: ~{num_pages}")
-        if min_pages:
-            active_filters.append(f"Min pages: {min_pages}")
-        if max_pages:
-            active_filters.append(f"Max pages: {max_pages}")
-        if avg_rating:
-            active_filters.append(f"Rating: ~{avg_rating}")
-        if min_rating:
-            active_filters.append(f"Min rating: {min_rating}")
-        if max_rating:
-            active_filters.append(f"Max rating: {max_rating}")
-        if characters:
-            active_filters.append(f"Character: {characters}")
+        # Parti dal dataset completo
+        filtered_df = df.copy()
         
-        if active_filters:
-            filters_text = ", ".join(active_filters)
-            message = f"[DEBUG] Searching with filters: {filters_text}"
-        else:
-            message = "[DEBUG] No filters specified - would ask for more info"
+        # Applica filtri uno per uno
+        try:
+            # Filtro per genere
+            if genre:
+                filtered_df = filtered_df[
+                    filtered_df['genres'].str.contains(genre, case=False, na=False)
+                ]
+            
+            # Filtro per titolo (se cercano titolo specifico, restituisci solo quello)
+            if title:
+                filtered_df = filtered_df[
+                    filtered_df['title'].str.contains(title, case=False, na=False)
+                ]
+                # Per titolo, restituisci solo 1 risultato
+                return self._return_single_book(filtered_df, dispatcher, title)
+            
+            # Filtro per autore
+            if author:
+                filtered_df = filtered_df[
+                    filtered_df['author'].str.contains(author, case=False, na=False)
+                ]
+            
+            # Filtro per numero esatto di pagine (±50 pagine)
+            if num_pages:
+                target_pages = float(num_pages)
+                filtered_df = filtered_df.dropna(subset=['num_pages'])
+                filtered_df = filtered_df[
+                    (filtered_df['num_pages'] >= target_pages - 50) &
+                    (filtered_df['num_pages'] <= target_pages + 50)
+                ]
+            
+            # Filtro per min pagine
+            if min_pages:
+                filtered_df = filtered_df.dropna(subset=['num_pages'])
+                filtered_df = filtered_df[filtered_df['num_pages'] >= float(min_pages)]
+            
+            # Filtro per max pagine
+            if max_pages:
+                filtered_df = filtered_df.dropna(subset=['num_pages'])
+                filtered_df = filtered_df[filtered_df['num_pages'] <= float(max_pages)]
+            
+            # Filtro per rating esatto (±0.2)
+            if avg_rating:
+                target_rating = float(avg_rating)
+                filtered_df = filtered_df.dropna(subset=['avg_rating'])
+                filtered_df = filtered_df[
+                    (filtered_df['avg_rating'] >= target_rating - 0.2) &
+                    (filtered_df['avg_rating'] <= target_rating + 0.2)
+                ]
+            
+            # Filtro per min rating
+            if min_rating:
+                filtered_df = filtered_df.dropna(subset=['avg_rating'])
+                filtered_df = filtered_df[filtered_df['avg_rating'] >= float(min_rating)]
+            
+            # Filtro per max rating
+            if max_rating:
+                filtered_df = filtered_df.dropna(subset=['avg_rating'])
+                filtered_df = filtered_df[filtered_df['avg_rating'] <= float(max_rating)]
+            
+            # Filtro per personaggio
+            if characters:
+                filtered_df = filtered_df[
+                    filtered_df['characters'].str.contains(characters, case=False, na=False)
+                ]
+            
+            # Verifica se ci sono risultati
+            if filtered_df.empty:
+                active_filters = self._get_active_filters(
+                    genre, title, author, num_pages, min_pages, max_pages,
+                    avg_rating, min_rating, max_rating, characters
+                )
+                dispatcher.utter_message(
+                    text=f"Sorry, I couldn't find any books matching your criteria: {active_filters}. "
+                         "Would you like to try different filters?"
+                )
+                return []
+            
+            # Ordina per numero di recensioni (più popolari prima)
+            filtered_df = filtered_df.sort_values(
+                ['num_ratings', 'avg_rating'], 
+                ascending=[False, False]
+            )
+            
+            # Prendi i top 3-5 libri (3 se ci sono pochi risultati, 5 altrimenti)
+            num_results = min(5 if len(filtered_df) >= 5 else 3, len(filtered_df))
+            top_books = filtered_df.head(num_results)
+            
+            # Costruisci il messaggio con i suggerimenti
+            message = self._format_multiple_books_message(
+                top_books, 
+                genre, author, min_pages, max_pages, min_rating, characters
+            )
+            dispatcher.utter_message(text=message)
+            
+        except Exception as e:
+            dispatcher.utter_message(
+                text=f"Sorry, there was an error processing your request: {str(e)}"
+            )
         
+        return []
+    
+    def _return_single_book(self, filtered_df, dispatcher, title):
+        """Helper per restituire un singolo libro quando cercano per titolo"""
+        if filtered_df.empty:
+            dispatcher.utter_message(text=f"Sorry, I couldn't find a book titled '{title}'.")
+            return []
+        
+        # Ordina per num_ratings per prendere la versione più popolare
+        book = filtered_df.sort_values('num_ratings', ascending=False).iloc[0]
+        message = self._format_single_book_detail(book)
         dispatcher.utter_message(text=message)
         return []
+    
+    def _format_multiple_books_message(self, books_df, genre, author, min_pages, max_pages, min_rating, characters):
+        """Formatta messaggio con 3-5 libri suggeriti"""
+        # Header con criteri attivi
+        active_criteria = []
+        if genre:
+            active_criteria.append(f"**{genre}**")
+        if author:
+            active_criteria.append(f"by **{author}**")
+            #Aggiungere il caso in cui si mette il numero specifico di pagine
+        if min_pages or max_pages:
+            if min_pages and max_pages:
+                active_criteria.append(f"{int(min_pages)}-{int(max_pages)} pages")
+            elif min_pages:
+                active_criteria.append(f"over {int(min_pages)} pages")
+            elif max_pages:
+                active_criteria.append(f"under {int(max_pages)} pages")
+        if min_rating:
+            active_criteria.append(f"rating ≥ {min_rating}")
+        if characters:
+            active_criteria.append(f"featuring **{characters}**")
+        
+        criteria_text = " ".join(active_criteria) if active_criteria else "all books"
+        
+        message = f"Here are {len(books_df)} great books {criteria_text}:\n\n"
+        
+        # Lista i libri
+        for idx, (_, book) in enumerate(books_df.iterrows(), 1):
+            message += f"**{idx}. {book['title']}**\n"
+            message += f"   by {book['author']}\n"
+            
+            if pd.notna(book['avg_rating']):
+                stars = "⭐" * int(round(book['avg_rating']))
+                message += f"   {book['avg_rating']:.2f}/5.0 {stars}"
+            
+            if pd.notna(book['num_ratings']):
+                message += f" ({int(book['num_ratings']):,} ratings)"
+            
+            if pd.notna(book['num_pages']):
+                message += f" • {int(book['num_pages'])} pages"
+            
+            message += "\n\n"
+        
+        # Suggerimento per affinare la ricerca
+        message += "**Refine your search:**\n"
+        suggestions = []
+        if not genre:
+            suggestions.append("• Specify a genre")
+        if not author:
+            suggestions.append("• Specify an author")
+        if not (min_pages or max_pages):
+            suggestions.append("• Add page count preferences")
+        if not min_rating:
+            suggestions.append("• Filter by minimum rating")
+        if not characters:
+            suggestions.append("• Search by character name")
+        
+        if suggestions:
+            message += "\n".join(suggestions[:3])  # Max 3 suggerimenti
+        else:
+            message += "You've applied many filters! Would you like details on any of these books?"
+        
+        return message
+    
+    def _format_single_book_detail(self, book):
+        """Formatta dettagli completi di un singolo libro"""
+        message = f"📖 **{book['title']}**\n"
+        message += f"by *{book['author']}*\n\n"
+        
+        # Rating
+        if pd.notna(book['avg_rating']):
+            stars = "⭐" * int(round(book['avg_rating']))
+            message += f"**Rating:** {book['avg_rating']:.2f}/5.0 {stars}\n"
+        
+        # Numero recensioni
+        if pd.notna(book['num_ratings']):
+            message += f"**Reviews:** {int(book['num_ratings']):,} ratings\n"
+        
+        # Pagine
+        if pd.notna(book['num_pages']):
+            message += f"**Pages:** {int(book['num_pages'])}\n"
+        
+        # Anno pubblicazione
+        if pd.notna(book['year']):
+            message += f"**Published in the year:** {book['year']}\n"
+        
+        # Generi
+        if pd.notna(book['genres']):
+            genres_list = book['genres'].split(',')[:5]
+            message += f"**Genres:** {', '.join(genres_list)}\n"
+        
+        # Descrizione
+        if pd.notna(book['description']):
+            desc = book['description'][:300]
+            if len(book['description']) > 300:
+                desc += "..."
+            message += f"\n**Description:**\n{desc}"
+        
+        return message
+    
+    def _get_active_filters(self, genre, title, author, num_pages, min_pages, 
+                           max_pages, avg_rating, min_rating, max_rating, characters):
+        """Helper per costruire stringa con filtri attivi"""
+        active = []
+        if genre:
+            active.append(f"genre={genre}")
+        if title:
+            active.append(f"title={title}")
+        if author:
+            active.append(f"author={author}")
+        if num_pages:
+            active.append(f"pages~{num_pages}")
+        if min_pages:
+            active.append(f"min_pages={min_pages}")
+        if max_pages:
+            active.append(f"max_pages={max_pages}")
+        if avg_rating:
+            active.append(f"rating~{avg_rating}")
+        if min_rating:
+            active.append(f"min_rating={min_rating}")
+        if max_rating:
+            active.append(f"max_rating={max_rating}")
+        if characters:
+            active.append(f"character={characters}")
+        return ", ".join(active) if active else "none"
 
 
 class ActionResetSlots(Action):
@@ -96,6 +308,8 @@ class ActionResetSlots(Action):
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        
+        dispatcher.utter_message(text="Starting a fresh search! What are you looking for?")
         
         return [
             SlotSet("genre", None),
