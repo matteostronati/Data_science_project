@@ -6,11 +6,6 @@ rules:
       - intent: goodbye
       - action: utter_goodbye
 
-  - rule: Say hello anytime the user greets
-    steps:
-      - intent: greet
-      - action: utter_greet
-
   - rule: Handle stop intent
     steps:
       - intent: stop
@@ -19,5 +14,5 @@ rules:
   - rule: Reset slots on new search
     steps:
       - intent: new_search
-      - action: action_reset_slots
-      - action: utter_ask_genre
+      - action: action_reset_slots_with_message
+      - action: utter_ask_newsearch

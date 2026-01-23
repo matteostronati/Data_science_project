@@ -1,24 +1,12 @@
 version: "3.1"
 
 stories:
-  - story: greet and search with multiple filters
+  - story: greet and start a new search
     steps:
       - intent: greet
       - action: utter_greet
-      - intent: specify_genre
-        entities:
-          - genre
-      - action: action_search_books
-      - intent: find_book_by_author
-        entities:
-          - author
-      - action: action_search_books
-      - intent: affirm
-      - action: utter_ask_another
-      - intent: affirm
       - action: action_reset_slots
-      - action: utter_ask_genre
-
+      
   - story: direct genre search
     steps:
       - intent: specify_genre
@@ -62,50 +50,44 @@ stories:
           - characters
       - action: action_search_books
 
-  - story: user refines search with more criteria
+  - story: user doesn't like the result
     steps:
-      - intent: specify_genre
-        entities:
-          - genre
-      - action: action_search_books
       - intent: deny
       - action: utter_ask_more_info
-      - intent: find_book_by_author
-        entities:
-          - author
-      - action: action_search_books
-
-  - story: user satisfied and wants another book
-    steps:
-      - intent: specify_genre
-        entities:
-          - genre
-      - action: action_search_books
-      - intent: affirm
-      - action: utter_ask_another
-      - intent: affirm
-      - action: action_reset_slots
-      - action: utter_ask_genre
 
   - story: user wants completely new search
     steps:
       - intent: new_search
-      - action: action_reset_slots
-      - action: utter_ask_genre
-
-  - story: user not satisfied tries new search
-    steps:
-      - intent: specify_genre
-        entities:
-          - genre
-      - action: action_search_books
-      - intent: deny
-      - action: utter_ask_more_info
-      - intent: new_search
-      - action: action_reset_slots
-      - action: utter_ask_genre
+      - action: action_reset_slots_with_message
+      - action: utter_ask_newsearch
 
   - story: simple goodbye
     steps:
       - intent: goodbye
       - action: utter_goodbye
+    
+  - story: user searches title and confirms it's correct
+    steps:
+      - intent: find_book_by_title
+        entities:
+          - title
+      - action: action_search_books
+      - slot_was_set:
+        - found_specific_book: true
+      - action: utter_ask_is_this_correct
+      - intent: affirm
+      - action: utter_book_found_happy
+      - action: action_reset_slots
+
+  - story: user searches title but it's wrong
+    steps:
+      - intent: find_book_by_title
+        entities:
+          - title
+      - action: action_search_books
+      - slot_was_set:
+        - found_specific_book: true
+      - action: utter_ask_is_this_correct
+      - intent: deny
+      - action: utter_book_notfound
+      - action: action_reset_slots

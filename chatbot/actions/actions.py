@@ -132,8 +132,8 @@ class ActionSearchBooks(Action):
                     avg_rating, min_rating, max_rating, characters
                 )
                 dispatcher.utter_message(
-                    text=f"Sorry, I couldn't find any books matching your criteria: {active_filters}. "
-                         "Would you like to try different filters?"
+                    text=f"Sorry, I couldn't find any books matching your criteria: {active_filters}.\n\nYou can type \"new search\" to start fresh and clear all filters. "
+                
                 )
                 return []
             
@@ -146,32 +146,40 @@ class ActionSearchBooks(Action):
             # Prendi i top 3-5 libri (3 se ci sono pochi risultati, 5 altrimenti)
             num_results = min(5 if len(filtered_df) >= 5 else 3, len(filtered_df))
             top_books = filtered_df.head(num_results)
-            
-            # Costruisci il messaggio con i suggerimenti
-            message = self._format_multiple_books_message(
-                top_books, 
-                genre, author, min_pages, max_pages, min_rating, characters
-            )
-            dispatcher.utter_message(text=message)
-            
-        except Exception as e:
-            dispatcher.utter_message(
-                text=f"Sorry, there was an error processing your request: {str(e)}"
-            )
+            # Genera i bottoni dinamicamente
+            buttons = []
+            for _, book in top_books.iterrows():
+                safe_title = book['title'].replace('"', '')
+                buttons.append({
+                    "title": f"{book['title'][:20]}...",  # Tronchiamo il titolo visibile se troppo lungo
+                    "payload": f'/find_book_by_title{{"title": "{safe_title}"}}' 
+                })           
         
+            # Costruisci il messaggio testuale (il metodo che avevi già)
+            message = self._format_multiple_books_message(
+                top_books, genre, author, min_pages, max_pages, min_rating, characters
+            )
+            # Invia messaggio CON i bottoni
+            dispatcher.utter_message(text=message, buttons=buttons)
+
+        except Exception as e:
+            dispatcher.utter_message(text=f"Error: {str(e)}")
         return []
+        
     
     def _return_single_book(self, filtered_df, dispatcher, title):
         """Helper per restituire un singolo libro quando cercano per titolo"""
         if filtered_df.empty:
-            dispatcher.utter_message(text=f"Sorry, I couldn't find a book titled '{title}'.")
+            dispatcher.utter_message(text=f"Sorry, I couldn't find a book titled '{title}'.\n\nYou can always type \"new search\" to start fresh and clear all filters.")
             return []
         
         # Ordina per num_ratings per prendere la versione più popolare
         book = filtered_df.sort_values('num_ratings', ascending=False).iloc[0]
         message = self._format_single_book_detail(book)
         dispatcher.utter_message(text=message)
-        return []
+        
+        # Imposta lo slot per indicare che abbiamo trovato un libro specifico
+        return [SlotSet("found_specific_book", True)]
     
     def _format_multiple_books_message(self, books_df, genre, author, min_pages, max_pages, min_rating, characters):
         """Formatta messaggio con 3-5 libri suggeriti"""
@@ -234,6 +242,7 @@ class ActionSearchBooks(Action):
         else:
             message += "You've applied many filters! Would you like details on any of these books?"
         
+        message += "\n\nYou can always type \"new search\" to start fresh and clear all filters."
         return message
     
     def _format_single_book_detail(self, book):
@@ -298,12 +307,36 @@ class ActionSearchBooks(Action):
             active.append(f"character={characters}")
         return ", ".join(active) if active else "none"
 
-
 class ActionResetSlots(Action):
-    """Reset tutti gli slots per una nuova ricerca"""
+    """Reset tutti gli slots SENZA messaggio (silente)"""
     
     def name(self) -> Text:
         return "action_reset_slots"
+    
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        
+        return [
+            SlotSet("genre", None),
+            SlotSet("title", None),
+            SlotSet("author", None),
+            SlotSet("num_pages", None),
+            SlotSet("min_num_pages", None),
+            SlotSet("max_num_pages", None),
+            SlotSet("avg_rating", None),
+            SlotSet("min_avg_rating", None),
+            SlotSet("max_avg_rating", None),
+            SlotSet("characters", None),
+            SlotSet("found_specific_book", False),
+        ]
+
+
+class ActionResetSlotsWithMessage(Action):
+    """Reset tutti gli slots CON messaggio (quando l'utente chiede nuova ricerca)"""
+    
+    def name(self) -> Text:
+        return "action_reset_slots_with_message"
     
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
@@ -322,4 +355,5 @@ class ActionResetSlots(Action):
             SlotSet("min_avg_rating", None),
             SlotSet("max_avg_rating", None),
             SlotSet("characters", None),
+            SlotSet("found_specific_book", False),
         ]

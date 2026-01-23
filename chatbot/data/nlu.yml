@@ -14,7 +14,6 @@ nlu:
       - goodmorning
       - goodevening
       - good afternoon
-      - yo
       - hello world
       - hi there
   - intent: goodbye
@@ -37,17 +36,22 @@ nlu:
       - indeed
       - of course
       - that sounds good
+      - all right
       - correct
       - /affirm
+
   - intent: deny
     examples: |
       - no
       - n
       - never
+      - i don't like
+      - It's not for me 
       - I don't think so
       - don't like that
       - no way
       - not really
+
   - intent: stop
     examples: |
       - stop
@@ -61,6 +65,7 @@ nlu:
       - start over
       - new search
       - search again
+      - i want to do a new search
       - reset
       - clear filters
       - I want to search for something else
@@ -144,6 +149,7 @@ nlu:
       - Find books by [Stephen King](author)
       - Show me titles written by [Agatha Christie](author)
       - Search for books from [George Orwell](author)
+      - a book of the author [Italo Calvino](author)
       - Do you have any books by [J.K. Rowling](author)?
       - List novels by [Haruki Murakami](author)
       - Find all books authored by [Jane Austen](author)
@@ -180,30 +186,31 @@ nlu:
       - Find books over [500](min_num_pages) pages
       - Show books with more than [400](min_num_pages) pages
       - Search books longer than [600](min_num_pages) pages
-      - Find books between [200](min_num_pages) and [350](max_num_pages) pages
-      - Show books with [250](min_num_pages) to [450](max_num_pages) pages
-      - Search for books ranging from [100](min_num_pages) to [200](max_num_pages) pages
-      - Find short books max [120](max_num_pages) pages
-      - Find long books min [700](min_num_pages) pages
-      - Show books between [50](min_num_pages) and [120](max_num_pages) pages
-      - I want a book with at least [300](min_num_pages) pages
-      - Find me a book shorter than [180](max_num_pages) pages
-      - Search for novels between [300](min_num_pages) and [500](max_num_pages) pages
-      - Show books with minimum [600](min_num_pages) pages
-      - Find books with maximum [250](max_num_pages) pages.
-      - I need a book with more than [800](min_num_pages) pages
-      - Look for books with less than [100](max_num_pages) pages
-      - Find titles between [400](min_num_pages) and [600](max_num_pages) pages
-      - Show me valid options for books under [150](max_num_pages) pages
-      - Search reads over [450](min_num_pages) pages
-      - Find valid books between [100](min_num_pages) and [900](max_num_pages) pages
-      - I want something with at least [200](min_num_pages) pages but less than [400](max_num_pages)
-      - Find books exceeding [1000](min_num_pages) pages
-      - Show items below [50](max_num_pages) pages
-      - Search for a range of [200](min_num_pages) to [300](max_num_pages) pages
-      - Find books greater than [350](min_num_pages) pages
-      - I want to read a book with less than [220](max_num_pages) pages
-      - Show titles ranging from [500](min_num_pages) to [700](max_num_pages) pages
+      - books under [200](max_num_pages) pages
+      - books less than [150](max_num_pages) pages
+      - max [300](max_num_pages) pages
+      - fewer than [250](max_num_pages) pages
+      - shorter than [180](max_num_pages) pages
+      - maximum [120](max_num_pages) pages
+      - below [100](max_num_pages) pages
+      - books over [500](min_num_pages) pages
+      - books more than [400](min_num_pages) pages
+      - min [700](min_num_pages) pages
+      - minimum [300](min_num_pages) pages
+      - longer than [600](min_num_pages) pages
+      - at least [300](min_num_pages) pages
+      - minimum [450](min_num_pages) pages
+      - above [350](min_num_pages) pages
+      - books between [200](min_num_pages) and [350](max_num_pages) pages
+      - [250](min_num_pages) to [450](max_num_pages) pages
+      - from [100](min_num_pages) to [200](max_num_pages) pages
+      - [300](min_num_pages) - [500](max_num_pages) pages
+      - I want a book with more than [400](min_num_pages) pages
+      - I need less than [250](max_num_pages) pages
+      - book with at least [500](min_num_pages) pages
+      - something under [150](max_num_pages) pages
+      - more than [600](min_num_pages) pages
+      - a book over [300](min_num_pages) pages
 
   - intent: find_book_by_page
     examples: |
@@ -212,31 +219,23 @@ nlu:
       - Search for books close to [360](num_pages) pages
       - Find books roughly [90](num_pages) pages
       - Show me books near [410](num_pages) pages
-      - Search books approximately [600](num_pages) pages long
-      - Find books with about [275](num_pages) pages
-      - Show books that are roughly [150](num_pages) pages
-      - Search for books around [725](num_pages) pages
-      - Find books close to [200](num_pages) pages long
-      - Show me books approximately [330](num_pages) pages
-      - Search books near [480](num_pages) pages
-      - Find books about [50](num_pages) pages
-      - Show books around [840](num_pages) pages
-      - Search for books roughly [390](num_pages) pages
-      - I want a book with [300](num_pages) pages
-      - Find something with [400](num_pages) pages
-      - Search for a [500](num_pages) page book
-      - Do you have a book with [200](num_pages) pages?
-      - Show books that have [100](num_pages) pages
-      - Find novels with [350](num_pages) pages
-      - I need a book with [600](num_pages) pages
-      - Search for titles with [150](num_pages) pages
-      - Find books of [250](num_pages) pages
-      - Show me a [450](num_pages) page novel
-      - I'm looking for a book with [800](num_pages) pages
-      - Find books lasting [320](num_pages) pages
-      - Search near [180](num_pages) pages
-      - Find books with exactly [700](num_pages) pages
-      - Show items with [220](num_pages) pages
+      - books around [300](num_pages) pages
+      - books with about [250](num_pages) pages
+      - approximately [400](num_pages) pages
+      - roughly [150](num_pages) pages
+      - close to [500](num_pages) pages
+      - a book near [200](num_pages) pages
+      - a book with around [350](num_pages) pages
+      - circa [180](num_pages) pages
+      - book with [300](num_pages) pages
+      - [400](num_pages) pages
+      - books with exactly [500](num_pages) pages
+      - a [250](num_pages) page book
+      - something with [600](num_pages) pages
+      - I want [300](num_pages) pages
+      - I need a book with [450](num_pages) pages
+      - looking for [200](num_pages) pages
+      - do you have [350](num_pages) pages
 
   - intent: find_book_by_rating_range
     examples: |
@@ -276,30 +275,30 @@ nlu:
       - Find books featuring [Harry Potter](characters)
       - Show books with the character [Sherlock Holmes](characters)
       - Search books that include [Hermione Granger](characters)
-      - Find titles where [Katniss Everdeen](characters) appears
-      - Show me books with [Frodo Baggins](characters)
-      - Search for books featuring [Elizabeth Bennet](characters)
-      - Find books with [Jay Gatsby](characters)
-      - Show titles with [Atticus Finch](characters)
-      - Search books that have [Hercule Poirot](characters)
-      - Find books featuring [Bilbo Baggins](characters)
-      - Show books that include [Dracula](characters)
-      - Search for books with [Alice](characters)
-      - Find books where [Winston Smith](characters) is a main character
-      - Show books featuring [Holden Caulfield](characters)
-      - Search titles with the character [Jo March](characters)
-      - Find books with [Gandalf](characters)
-      - Show stories about [Peter Pan](characters)
-      - Search for books with [Scarlett O'Hara](characters)
-      - Find titles featuring [Huckleberry Finn](characters)
-      - Show me books with [Jane Eyre](characters)
-      - Search books including [Captain Ahab](characters)
-      - Find books with [Hannibal Lecter](characters)
-      - Show novels featuring [Lisbeth Salander](characters)
-      - Search for [Jon Snow](characters) in books
-      - I want books with [Daenerys Targaryen](characters)
-      - Find books with [Edward Cullen](characters)
-      - Show stories featuring [Bella Swan](characters)
-      - Search books with [Percy Jackson](characters)
-      - Find titles with [Annabeth Chase](characters)
-      - Show me books with [Aslan](characters)
+      - books with [Harry Potter](characters) character
+      - books featuring [Sherlock Holmes](characters)
+      - character [Hermione Granger](characters)
+      - books with character [Katniss Everdeen](characters)
+      - featuring [Frodo Baggins](characters)
+      - books about [Elizabeth Bennet](characters) character
+      - with character [Jay Gatsby](characters)
+      - a book about the character [Moby Dick](characters)
+      - featuring character [Atticus Finch](characters)
+      - [Hercule Poirot](characters) as character
+      - books where [Bilbo Baggins](characters) appears
+      - character named [Dracula](characters)
+      - [Alice](characters) as main character
+      - books with [Winston Smith](characters) as character
+      - featuring [Holden Caulfield](characters) character
+      - character [Gandalf](characters)
+      - [Peter Pan](characters) character
+      - I want a book with [Scarlett O'Hara](characters) character
+      - I want books featuring [Huckleberry Finn](characters)
+      - I need character [Jane Eyre](characters)
+      - looking for [Captain Ahab](characters) character
+      - books with the character [Hannibal Lecter](characters)
+      - featuring the character [Lisbeth Salander](characters)
+      - [Jon Snow](characters) as a character
+      - book with character [Daenerys Targaryen](characters)
+      - [Percy Jackson](characters) character books
+
