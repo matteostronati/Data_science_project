@@ -31,6 +31,7 @@ entities:
   - min_avg_rating
   - max_avg_rating
   - characters
+  - book_index
 
 slots:
   genre:
@@ -109,18 +110,31 @@ slots:
     mappings:
       - type: custom
     initial_value: false
+  
+  book_index:  
+    type: text
+    influence_conversation: false
+    mappings:
+      - type: from_entity
+        entity: book_index
+
+  suggested_books:  
+    type: any
+    influence_conversation: false
+    mappings:
+      - type: custom
 
 responses:
   utter_greet:
   - text: "Hello! I'm your book recommendation assistant. I can help you find books in two ways:\n\n• Search by title - Tell me the book title you're looking for\n• Discover with filters - I'll suggest books based on genre, author, rating, number of pages, and more!"
-  - text: "Welcome! I'm here to help you find the perfect book. You can:\n\n• Search for a specific title if you know what you're looking for\n• Use filters (genre, author, rating, number of pages) to discover new books"
+  - text: "Welcome! I'm here to help you find the perfect book. You can:\n• Search for a specific title if you know what you're looking for\n• Use filters (genre, author, rating, number of pages) to discover new books"
   
   utter_goodbye:
     - text: "Happy reading! Come back anytime you need a book recommendation.\nType \"new search\" to start a new conversation."
     - text: "Goodbye! Enjoy your book and see you next time!\nType \"new search\" to find another book."
   
   utter_ask_newsearch:
-    - text: "I can help you find books in two ways:\n\n1) Search by title - Tell me the book title you're looking for\n2) Discover with filters - I'll suggest books based on genre, author, rating, number of pages, and more!"
+    - text: "I can help you find books in two ways:\n• Search by title - Tell me the book title you're looking for\n• Discover with filters - I'll suggest books based on genre, author, rating, number of pages, and more!"
   
   utter_ask_more_info:
     - text: "I'm sorry, I need more details. You can add filters (genre, author, rating, pages) to refine your search, or type \"new search\" to start fresh."
@@ -151,4 +165,5 @@ actions:
   - action_search_books
   - action_reset_slots
   - action_reset_slots_with_message
+  - action_show_selected_book 
 

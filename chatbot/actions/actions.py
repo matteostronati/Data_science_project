@@ -146,21 +146,35 @@ class ActionSearchBooks(Action):
             # Prendi i top 3-5 libri (3 se ci sono pochi risultati, 5 altrimenti)
             num_results = min(5 if len(filtered_df) >= 5 else 3, len(filtered_df))
             top_books = filtered_df.head(num_results)
-            # Genera i bottoni dinamicamente
-            buttons = []
-            for _, book in top_books.iterrows():
-                safe_title = book['title'].replace('"', '')
-                buttons.append({
-                    "title": f"{book['title'][:20]}...",  # Tronchiamo il titolo visibile se troppo lungo
-                    "payload": f'/find_book_by_title{{"title": "{safe_title}"}}' 
-                })           
-        
-            # Costruisci il messaggio testuale (il metodo che avevi già)
+            
+            # Costruisci il messaggio testuale (come prima)
             message = self._format_multiple_books_message(
                 top_books, genre, author, min_pages, max_pages, min_rating, characters
             )
-            # Invia messaggio CON i bottoni
-            dispatcher.utter_message(text=message, buttons=buttons)
+            
+            # Genera i bottoni con solo l'indice
+            buttons = []
+            for idx, (_, book) in enumerate(top_books.iterrows(), 1):
+                # Tronca il titolo per il display
+                display_title = book['title']
+                if len(display_title) > 50:
+                    display_title = display_title[:50] + "..."
+                
+                button = {
+                    "title": f"{idx}. {display_title}",
+                    "payload": f"/select_book_{idx}"
+                }
+                buttons.append(button)
+            
+            # Invia messaggio con i bottoni
+            dispatcher.utter_message(
+                text=message, 
+                buttons=buttons,
+                button_type="vertical"  
+            )
+            
+            # Salva i libri nello slot per recuperarli dopo
+            return [SlotSet("suggested_books", top_books.to_dict('records'))]
 
         except Exception as e:
             dispatcher.utter_message(text=f"Error: {str(e)}")
@@ -224,7 +238,7 @@ class ActionSearchBooks(Action):
             message += "\n\n"
         
         # Suggerimento per affinare la ricerca
-        message += "**Refine your search:**\n"
+        message += "<b>Refine your search:</b>\n"
         suggestions = []
         if not genre:
             suggestions.append("• Specify a genre")
@@ -241,8 +255,9 @@ class ActionSearchBooks(Action):
             message += "\n".join(suggestions[:3])  # Max 3 suggerimenti
         else:
             message += "You've applied many filters! Would you like details on any of these books?"
-        
-        message += "\n\nYou can always type \"new search\" to start fresh and clear all filters."
+
+        message += "\n💡 **Click a button below to see full details about the book!**"
+        message += "\nYou can always type \"new search\" to start fresh and clear all filters."
         return message
     
     def _format_single_book_detail(self, book):
@@ -329,6 +344,8 @@ class ActionResetSlots(Action):
             SlotSet("max_avg_rating", None),
             SlotSet("characters", None),
             SlotSet("found_specific_book", False),
+            SlotSet("suggested_books", None), 
+            SlotSet("book_index", None), 
         ]
 
 
@@ -356,4 +373,97 @@ class ActionResetSlotsWithMessage(Action):
             SlotSet("max_avg_rating", None),
             SlotSet("characters", None),
             SlotSet("found_specific_book", False),
+            SlotSet("suggested_books", None), 
+            SlotSet("book_index", None), 
         ]
+
+class ActionShowSelectedBook(Action):
+    """Mostra i dettagli del libro selezionato dall'utente"""
+    
+    def name(self) -> Text:
+        return "action_show_selected_book"
+    
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        
+        # Recupera l'indice del libro selezionato dall'utente
+        book_index = tracker.get_slot("book_index")
+        
+        # Se non c'è, estrailo dal messaggio
+        if not book_index:
+            import re
+            last_message = tracker.latest_message.get('text', '')
+            match = re.search(r'(\d+)', last_message)  # Estrae qualsiasi numero
+            if match:
+                book_index = match.group(1)
+
+        # Recupera la lista dei libri salvata in precedenza
+        suggested_books = tracker.get_slot("suggested_books")
+        
+        # Controllo di sicurezza
+        if not book_index or not suggested_books:
+            dispatcher.utter_message(
+                text="Sorry, I couldn't find that book. Please search again."
+            )
+            return []
+        
+        try:
+            # Converti l'indice a numero (1-based → 0-based)
+            idx = int(book_index) - 1
+            
+            # Validazione indice
+            if idx < 0 or idx >= len(suggested_books):
+                dispatcher.utter_message(
+                    text=f"Invalid selection. Please choose a number between 1 and {len(suggested_books)}."
+                )
+                return []
+            
+            # Prendi il libro dalla lista salvata
+            selected_book = suggested_books[idx]
+            
+            # Converti dict → pandas Series (per compatibilità con la funzione esistente)
+            book_series = pd.Series(selected_book)
+            
+            # Formatta e invia i dettagli completi
+            message = self._format_single_book_detail(book_series)
+            dispatcher.utter_message(text=message)
+            
+            # Imposta che abbiamo trovato un libro specifico (per il flow)
+            return [SlotSet("found_specific_book", True)]
+            
+        except (ValueError, KeyError, IndexError) as e:
+            dispatcher.utter_message(
+                text=f"Sorry, there was an error selecting that book: {str(e)}"
+            )
+            return []
+    
+    def _format_single_book_detail(self, book):
+        """Formatta dettagli completi di un singolo libro - COPIA DA ActionSearchBooks"""
+        message = f"📖 **{book['title']}**\n"
+        message += f"by *{book['author']}*\n\n"
+        
+        if pd.notna(book['avg_rating']):
+            stars = "⭐" * int(round(book['avg_rating']))
+            message += f"**Rating:** {book['avg_rating']:.2f}/5.0 {stars}\n"
+        
+        if pd.notna(book['num_ratings']):
+            message += f"**Reviews:** {int(book['num_ratings']):,} ratings\n"
+        
+        if pd.notna(book['num_pages']):
+            message += f"**Pages:** {int(book['num_pages'])}\n"
+        
+        if pd.notna(book['year']):
+            message += f"**Published in the year:** {book['year']}\n"
+        
+        if pd.notna(book['genres']):
+            genres_list = book['genres'].split(',')[:5]
+            message += f"**Genres:** {', '.join(genres_list)}\n"
+        
+        if pd.notna(book['description']):
+            desc = book['description'][:300]
+            if len(book['description']) > 300:
+                desc += "..."
+            message += f"\n**Description:**\n{desc}"
+        
+        return message
