@@ -1,0 +1,120 @@
+version: "3.1"
+
+stories:
+  - story: greet and start a new search
+    steps:
+      - intent: greet
+      - action: utter_greet
+      - action: action_reset_slots
+      
+  - story: direct genre search
+    steps:
+      - intent: specify_genre
+        entities:
+          - genre
+      - action: action_search_books
+
+  - story: search by author
+    steps:
+      - intent: find_book_by_author
+        entities:
+          - author
+      - action: action_search_books
+
+  - story: search by title
+    steps:
+      - intent: find_book_by_title
+        entities:
+          - title
+      - action: action_search_books
+
+  - story: search by page range
+    steps:
+      - intent: find_book_by_page_range
+        entities:
+          - min_num_pages
+          - max_num_pages
+      - action: action_search_books
+
+  - story: search by rating
+    steps:
+      - intent: find_book_by_rating_range
+        entities:
+          - min_avg_rating
+      - action: action_search_books
+
+  - story: search by character
+    steps:
+      - intent: find_book_by_character
+        entities:
+          - characters
+      - action: action_search_books
+
+  - story: user doesn't like the result
+    steps:
+      - intent: deny
+      - action: utter_ask_more_info
+
+  - story: user wants completely new search
+    steps:
+      - intent: new_search
+      - action: action_reset_slots_with_message
+      - action: utter_ask_newsearch
+
+  - story: simple goodbye
+    steps:
+      - intent: goodbye
+      - action: utter_goodbye
+    
+  - story: user searches title and confirms it's correct
+    steps:
+      - intent: find_book_by_title
+        entities:
+          - title
+      - action: action_search_books
+      - slot_was_set:
+        - found_specific_book: true
+      - action: utter_ask_is_this_correct
+      - intent: affirm
+      - action: utter_book_found_happy
+      - action: action_reset_slots
+
+  - story: user searches title but it's wrong
+    steps:
+      - intent: find_book_by_title
+        entities:
+          - title
+      - action: action_search_books
+      - slot_was_set:
+        - found_specific_book: true
+      - action: utter_ask_is_this_correct
+      - intent: deny
+      - action: utter_book_notfound
+      - action: action_reset_slots
+  
+  - story: user selects book and confirms
+    steps:
+      - action: action_search_books
+      - slot_was_set:
+        - suggested_books
+      - intent: select_book
+      - action: action_show_selected_book
+      - slot_was_set:
+        - found_specific_book: true
+      - action: utter_ask_is_this_correct
+      - intent: affirm
+      - action: utter_book_found_happy
+      - action: action_reset_slots
+
+  - story: user selects book but denies
+    steps:
+      - action: action_search_books
+      - slot_was_set:
+        - suggested_books
+      - intent: select_book
+      - action: action_show_selected_book
+      - slot_was_set:
+        - found_specific_book: true
+      - action: utter_ask_is_this_correct
+      - intent: deny
+      - action: action_reset_slots_with_message

@@ -1,0 +1,169 @@
+version: '3.0'
+
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true
+
+intents:
+  - greet
+  - goodbye
+  - affirm
+  - deny
+  - stop
+  - new_search
+  - find_book
+  - specify_genre
+  - find_book_by_title
+  - find_book_by_author
+  - find_book_by_page_range
+  - find_book_by_page
+  - find_book_by_rating_range
+  - find_book_by_character
+
+entities:
+  - genre
+  - title
+  - author
+  - num_pages
+  - min_num_pages
+  - max_num_pages
+  - avg_rating
+  - min_avg_rating
+  - max_avg_rating
+  - characters
+  - book_index
+
+slots:
+  genre:
+    type: text
+    influence_conversation: false
+    mappings:
+      - type: from_entity
+        entity: genre
+  
+  title:
+    type: text
+    influence_conversation: false
+    mappings:
+      - type: from_entity
+        entity: title
+  
+  author:
+    type: text
+    influence_conversation: false
+    mappings:
+      - type: from_entity
+        entity: author
+  
+  num_pages:
+    type: float
+    influence_conversation: false
+    mappings:
+      - type: from_entity
+        entity: num_pages
+  
+  min_num_pages:
+    type: float
+    influence_conversation: false
+    mappings:
+      - type: from_entity
+        entity: min_num_pages
+  
+  max_num_pages:
+    type: float
+    influence_conversation: false
+    mappings:
+      - type: from_entity
+        entity: max_num_pages
+  
+  avg_rating:
+    type: float
+    influence_conversation: false
+    mappings:
+      - type: from_entity
+        entity: avg_rating
+  
+  min_avg_rating:
+    type: float
+    influence_conversation: false
+    mappings:
+      - type: from_entity
+        entity: min_avg_rating
+  
+  max_avg_rating:
+    type: float
+    influence_conversation: false
+    mappings:
+      - type: from_entity
+        entity: max_avg_rating
+  
+  characters:
+    type: text
+    influence_conversation: false
+    mappings:
+      - type: from_entity
+        entity: characters
+  
+  found_specific_book:
+    type: bool
+    influence_conversation: true
+    mappings:
+      - type: custom
+    initial_value: false
+  
+  book_index:  
+    type: text
+    influence_conversation: false
+    mappings:
+      - type: from_entity
+        entity: book_index
+
+  suggested_books:  
+    type: any
+    influence_conversation: false
+    mappings:
+      - type: custom
+
+responses:
+  utter_greet:
+  - text: "Hello! I'm your book recommendation assistant. I can help you find books in two ways:\n\n• Search by title - Tell me the book title you're looking for\n• Discover with filters - I'll suggest books based on genre, author, rating, number of pages, and more!"
+  - text: "Welcome! I'm here to help you find the perfect book. You can:\n• Search for a specific title if you know what you're looking for\n• Use filters (genre, author, rating, number of pages) to discover new books"
+  
+  utter_goodbye:
+    - text: "Happy reading! Come back anytime you need a book recommendation.\nType \"new search\" to start a new conversation."
+    - text: "Goodbye! Enjoy your book and see you next time!\nType \"new search\" to find another book."
+  
+  utter_ask_newsearch:
+    - text: "I can help you find books in two ways:\n• Search by title - Tell me the book title you're looking for\n• Discover with filters - I'll suggest books based on genre, author, rating, number of pages, and more!"
+  
+  utter_ask_more_info:
+    - text: "I'm sorry, I need more details. You can add filters (genre, author, rating, pages) to refine your search, or type \"new search\" to start fresh."
+  
+  utter_no_results:
+    - text: "Sorry, I couldn't find any books matching your criteria. Would you like to try different filters?"
+  
+  utter_ask_another:
+    - text: "Would you like another recommendation?"
+    - text: "Can I help you find something else?"
+  
+  utter_stop:
+    - text: "No problem! Let me know if you need anything else."
+    - text: "Alright, stopping here. Feel free to ask me anything anytime!"
+  
+  utter_ask_is_this_correct:
+    - text: "Is this the book you were looking for?"
+    - text: "Did I find the right book?"
+
+  utter_book_found_happy:
+    - text: "Great! Enjoy your reading! If you want to find another book, just type \"new search\". Otherwise, feel free to say goodbye!"
+    - text: "Wonderful! Happy reading! You can type \"new search\" to search again, or say goodbye anytime!"
+  
+  utter_book_notfound:
+    - text: "I'm sorry this wasn't the book you were looking for. Don't worry! Just type \"new search\" and we'll start fresh to find something perfect for you."
+
+actions:
+  - action_search_books
+  - action_reset_slots
+  - action_reset_slots_with_message
+  - action_show_selected_book 
+
