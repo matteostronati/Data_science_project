@@ -28,7 +28,7 @@
 from typing import Text, List, Any, Dict
 import pandas as pd
 from rasa_sdk import Tracker, FormValidationAction, Action
-from rasa_sdk.events import EventType, SlotSet
+from rasa_sdk.events import EventType, SlotSet, UserUtteranceReverted
 from rasa_sdk.executor import CollectingDispatcher
 from rasa_sdk.types import DomainDict
 
@@ -184,7 +184,7 @@ class ActionSearchBooks(Action):
     def _return_single_book(self, filtered_df, dispatcher, title):
         """Helper per restituire un singolo libro quando cercano per titolo"""
         if filtered_df.empty:
-            dispatcher.utter_message(text=f"Sorry, I couldn't find a book titled '{title}'.\n\nYou can always type \"new search\" to start fresh and clear all filters.")
+            dispatcher.utter_message(text=f"Sorry, I couldn't find a book titled '{title}'.\nYou can always type \"new search\" to start fresh and clear all filters.")
             return []
         
         # Ordina per num_ratings per prendere la versione più popolare
@@ -200,13 +200,13 @@ class ActionSearchBooks(Action):
         # Header con criteri attivi
         active_criteria = []
         if genre:
-            active_criteria.append(f"**{genre}**")
+            active_criteria.append(f"{genre} genre")
         if author:
-            active_criteria.append(f"by **{author}**")
+            active_criteria.append(f"by the author {author}")
             #Aggiungere il caso in cui si mette il numero specifico di pagine
         if min_pages or max_pages:
             if min_pages and max_pages:
-                active_criteria.append(f"{int(min_pages)}-{int(max_pages)} pages")
+                active_criteria.append(f"with {int(min_pages)}-{int(max_pages)} pages")
             elif min_pages:
                 active_criteria.append(f"over {int(min_pages)} pages")
             elif max_pages:
@@ -214,7 +214,7 @@ class ActionSearchBooks(Action):
         if min_rating:
             active_criteria.append(f"rating ≥ {min_rating}")
         if characters:
-            active_criteria.append(f"featuring **{characters}**")
+            active_criteria.append(f"with characters {characters}")
         
         criteria_text = " ".join(active_criteria) if active_criteria else "all books"
         
@@ -222,77 +222,77 @@ class ActionSearchBooks(Action):
         
         # Lista i libri
         for idx, (_, book) in enumerate(books_df.iterrows(), 1):
-            message += f"**{idx}. {book['title']}**\n"
-            message += f"   by {book['author']}\n"
+            message += f"{idx}. 📖 {book['title']}\n"
+            message += f"     ✍️ Author: {book['author']}\n"
             
             if pd.notna(book['avg_rating']):
                 stars = "⭐" * int(round(book['avg_rating']))
-                message += f"   {book['avg_rating']:.2f}/5.0 {stars}"
+                message += f"     {book['avg_rating']:.2f}/5.0 {stars}"
             
             if pd.notna(book['num_ratings']):
                 message += f" ({int(book['num_ratings']):,} ratings)"
             
             if pd.notna(book['num_pages']):
-                message += f" • {int(book['num_pages'])} pages"
+                message += f"\n     {int(book['num_pages'])} pages"
             
             message += "\n\n"
         
         # Suggerimento per affinare la ricerca
-        message += "<b>Refine your search:</b>\n"
+        message += "✨ Refine your search:\n"
         suggestions = []
         if not genre:
-            suggestions.append("• Specify a genre")
+            suggestions.append("• Specify a genre 🎨")
         if not author:
-            suggestions.append("• Specify an author")
+            suggestions.append("• Specify an author ✍️")
         if not (min_pages or max_pages):
-            suggestions.append("• Add page count preferences")
+            suggestions.append("• Add page count preferences 🔢")
         if not min_rating:
-            suggestions.append("• Filter by minimum rating")
+            suggestions.append("• Filter by minimum rating 📈")
         if not characters:
-            suggestions.append("• Search by character name")
+            suggestions.append("• Search by character name 👤")
         
         if suggestions:
             message += "\n".join(suggestions[:3])  # Max 3 suggerimenti
         else:
             message += "You've applied many filters! Would you like details on any of these books?"
 
-        message += "\n💡 **Click a button below to see full details about the book!**"
-        message += "\nYou can always type \"new search\" to start fresh and clear all filters."
+        message += "\n\n🔍 Click a button below to see full details about the book!"
+        message += "\n🔄 You can always type \"new search\" to start fresh and clear all filters."
         return message
     
     def _format_single_book_detail(self, book):
         """Formatta dettagli completi di un singolo libro"""
-        message = f"📖 **{book['title']}**\n"
-        message += f"by *{book['author']}*\n\n"
+        message = f"📖 {book['title']}\n"
+        message += f"✍️ Author: {book['author']}\n"
         
         # Rating
         if pd.notna(book['avg_rating']):
             stars = "⭐" * int(round(book['avg_rating']))
-            message += f"**Rating:** {book['avg_rating']:.2f}/5.0 {stars}\n"
+            message += f"📈 Rating: {book['avg_rating']:.2f}/5.0 {stars}\n"
         
         # Numero recensioni
         if pd.notna(book['num_ratings']):
-            message += f"**Reviews:** {int(book['num_ratings']):,} ratings\n"
+            message += f"📝 Reviews: {int(book['num_ratings']):,} ratings\n"
         
         # Pagine
         if pd.notna(book['num_pages']):
-            message += f"**Pages:** {int(book['num_pages'])}\n"
+            message += f"🔢 Number of pages: {int(book['num_pages'])}\n"
         
         # Anno pubblicazione
         if pd.notna(book['year']):
-            message += f"**Published in the year:** {book['year']}\n"
+            message += f"🗓️ Published in the year: {int(book['year'])}\n"
         
         # Generi
         if pd.notna(book['genres']):
             genres_list = book['genres'].split(',')[:5]
-            message += f"**Genres:** {', '.join(genres_list)}\n"
+            message += f"🎨 Genres: {', '.join(genres_list)}\n"
         
         # Descrizione
         if pd.notna(book['description']):
-            desc = book['description'][:300]
-            if len(book['description']) > 300:
+            desc = book['description'][:500]
+            if len(book['description']) > 500:
                 desc += "..."
-            message += f"\n**Description:**\n{desc}"
+            message += f"ℹ️ Description:\n{desc}"
         
         return message
     
@@ -439,31 +439,53 @@ class ActionShowSelectedBook(Action):
             return []
     
     def _format_single_book_detail(self, book):
-        """Formatta dettagli completi di un singolo libro - COPIA DA ActionSearchBooks"""
-        message = f"📖 **{book['title']}**\n"
-        message += f"by *{book['author']}*\n\n"
+        """Formatta dettagli completi di un singolo libro"""
+        message = f"📖 {book['title']}\n"
+        message += f"✍️ Author: {book['author']}\n"
         
+        # Rating
         if pd.notna(book['avg_rating']):
             stars = "⭐" * int(round(book['avg_rating']))
-            message += f"**Rating:** {book['avg_rating']:.2f}/5.0 {stars}\n"
+            message += f"📈 Rating: {book['avg_rating']:.2f}/5.0 {stars}\n"
         
+        # Numero recensioni
         if pd.notna(book['num_ratings']):
-            message += f"**Reviews:** {int(book['num_ratings']):,} ratings\n"
+            message += f"📝 Reviews: {int(book['num_ratings']):,} ratings\n"
         
+        # Pagine
         if pd.notna(book['num_pages']):
-            message += f"**Pages:** {int(book['num_pages'])}\n"
+            message += f"🔢 Number of pages: {int(book['num_pages'])}\n"
         
+        # Anno pubblicazione
         if pd.notna(book['year']):
-            message += f"**Published in the year:** {book['year']}\n"
+            message += f"🗓️ Published in the year: {int(book['year'])}\n"
         
+        # Generi
         if pd.notna(book['genres']):
             genres_list = book['genres'].split(',')[:5]
-            message += f"**Genres:** {', '.join(genres_list)}\n"
+            message += f"🎨 Genres: {', '.join(genres_list)}\n"
         
+        # Descrizione
         if pd.notna(book['description']):
-            desc = book['description'][:300]
-            if len(book['description']) > 300:
+            desc = book['description'][:500]
+            if len(book['description']) > 500:
                 desc += "..."
-            message += f"\n**Description:**\n{desc}"
+            message += f"ℹ️ Description:\n{desc}"
         
         return message
+
+class ActionDefaultFallback(Action):
+    """Fallback quando il bot non capisce"""
+    
+    def name(self) -> Text:
+        return "action_default_fallback"
+    
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        
+        # Invia uno dei messaggi di utter_default
+        dispatcher.utter_message(response="utter_default")
+        
+        # Annulla l'ultimo messaggio utente per non confondere il tracker
+        return [UserUtteranceReverted()]

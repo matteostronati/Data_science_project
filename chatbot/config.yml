@@ -13,6 +13,9 @@ pipeline:
   epochs: 100
   constrain_similarities: true
   model_confidence: softmax
+- name: FallbackClassifier  
+  threshold: 0.7           
+  ambiguity_threshold: 0.1 
 
 policies:
 - name: MemoizationPolicy
@@ -21,4 +24,6 @@ policies:
   epochs: 50
   constrain_similarities: true
 - name: RulePolicy
+  core_fallback_threshold: 0.3 
+  core_fallback_action_name: "action_default_fallback"
 assistant_id: 20251112-160503-stubborn-flannel

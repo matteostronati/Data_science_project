@@ -5,6 +5,7 @@ nlu:
       - hey
       - hello
       - hi
+      - /start
       - hello there
       - good morning
       - good evening
