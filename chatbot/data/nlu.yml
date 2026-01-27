@@ -17,6 +17,7 @@ nlu:
       - good afternoon
       - hello world
       - hi there
+
   - intent: goodbye
     examples: |
       - cu
@@ -30,6 +31,7 @@ nlu:
       - bye bye
       - see you later
       - thanks, goodbye
+
   - intent: affirm
     examples: |
       - yes
@@ -150,34 +152,30 @@ nlu:
       - Find books by [Stephen King](author)
       - Show me titles written by [Agatha Christie](author)
       - Search for books from [George Orwell](author)
-      - a book of the author [Italo Calvino](author)
+      - books by the author [Italo Calvino](author)
       - Do you have any books by [J.K. Rowling](author)?
       - List novels by [Haruki Murakami](author)
       - Find all books authored by [Jane Austen](author)
-      - Look up works by [Isaac Asimov](author)
+      - work written by [Isaac Asimov](author)
       - Show books by [Brandon Sanderson](author)
-      - Search the catalog for [Ernest Hemingway](author)
       - What books did [Neil Gaiman](author) write?
       - Find books written by [Toni Morrison](author)
       - Get me books from [Gabriel García Márquez](author)
       - Show me novels by [Umberto Eco](author)
-      - Find books by [Margaret Atwood](author)
-      - Search for [Franz Kafka](author) books
       - I want books by [Charles Dickens](author)
       - Do you have [Mark Twain](author) novels?
-      - List books by [Virginia Woolf](author)
-      - Show works of [Fyoor Dostoevsky](author)
-      - Find titles by [Leo Tolstoy](author)
-      - Search for [C.S. Lewis](author)
+      - A book by the author [Virginia Woolf](author)
+      - Show works of [Fyodor Dostoevsky](author)
+      - books written by [C.S. Lewis](author)
       - I need books by [Roald Dahl](author)
       - Find me something by [Gillian Flynn](author)
-      - Do you have books by [Dan Brown](author)?
+      - author [Dan Brown](author)
       - Show me works by [Ken Follett](author)
-      - Find books authored by [Isabel Allende](author)
-      - Search for the author [Paulo Coelho](author)
-      - List books from [Suzanne Collins](author)
-      - I want to read [Khaled Hosseini](author)
-      - Find novels by [John Green](author)
+      - books authored by [Isabel Allende](author)
+      - the author [Paulo Coelho](author)
+      - novels by the author [John Green](author)
+      - [Brandon Sanderson](author) written books
+      - [Margaret Atwood](author) author
 
   - intent: find_book_by_page_range
     examples: |
@@ -202,16 +200,16 @@ nlu:
       - at least [300](min_num_pages) pages
       - minimum [450](min_num_pages) pages
       - above [350](min_num_pages) pages
-      - books between [200](min_num_pages) and [350](max_num_pages) pages
-      - [250](min_num_pages) to [450](max_num_pages) pages
-      - from [100](min_num_pages) to [200](max_num_pages) pages
-      - [300](min_num_pages) - [500](max_num_pages) pages
       - I want a book with more than [400](min_num_pages) pages
       - I need less than [250](max_num_pages) pages
       - book with at least [500](min_num_pages) pages
       - something under [150](max_num_pages) pages
       - more than [600](min_num_pages) pages
       - a book over [300](min_num_pages) pages
+      - under [350](max_num_pages) pages please
+      - at least [450](min_num_pages) pages long
+      - less than [200](max_num_pages) pages book
+      - over [700](min_num_pages) pages long
 
   - intent: find_book_by_page
     examples: |
@@ -238,38 +236,34 @@ nlu:
       - looking for [200](num_pages) pages
       - do you have [350](num_pages) pages
 
-  - intent: find_book_by_rating_range
+  - intent: find_book_by_min_rating
     examples: |
       - Find books with rating greater than [4.5](min_avg_rating)
       - Show books with average rating above [4.2](min_avg_rating)
       - Search for books rated higher than [4.7](min_avg_rating)
-      - Find books with rating lower than [3.0](max_avg_rating)
-      - Show books with average rating under [3.6](max_avg_rating)
-      - Search books rated below [2.5](max_avg_rating)
-      - Find books with rating around [4.0](avg_rating)
-      - Show books with average rating close to [3.8](avg_rating)
-      - Search for books with rating approximately [4.4](avg_rating)
+      - Find a book rated more than [4.7](min_avg_rating)
       - Find books with rating no less than [3.9](min_avg_rating)
-      - Show books with rating at most [4.1](max_avg_rating)
-      - Search books with rating no more than [2.0](max_avg_rating)
       - Find books rated at least [4.1](min_avg_rating)
-      - Show books with rating near [3.2](avg_rating)
       - Search for books with average rating just over [3.5](min_avg_rating)
-      - Find books with a score of [5.0](avg_rating)
       - Show books rated better than [3.8](min_avg_rating)
       - Search for highly rated books above [4.8](min_avg_rating)
-      - I want a book with rating [4.3](avg_rating)
-      - Find poor books rated under [2.0](max_avg_rating)
-      - Show me books with rating between [3.0](min_avg_rating) and [4.0](max_avg_rating)
-      - Search for average rating of [3.5](avg_rating)
       - Find books with at least [4.0](min_avg_rating) stars
-      - Show novels rated lower than [3.5](max_avg_rating)
       - Search books with rating greater or equal to [4.2](min_avg_rating)
-      - Find books with about [2.5](avg_rating) stars
-      - I want books rated [3.9](avg_rating)
-      - Search for books having less than [3.0](max_avg_rating) rating
       - Find items with rating over [4.6](min_avg_rating)
-      - Show books with max rating [3.5](max_avg_rating)
+      - books with rating above [4.0](min_avg_rating)
+      - rating at least [3.5](min_avg_rating) stars
+      - minimum rating [4.3](min_avg_rating)
+      - [4.5](min_avg_rating) stars or higher
+      - rating [4.0](min_avg_rating)+
+      - at least [3.8](min_avg_rating) rating
+      - min [4.2](min_avg_rating) stars
+      - [3.5](min_avg_rating) stars minimum
+      - over [4.4](min_avg_rating) rating
+      - more than [3.0](min_avg_rating) stars
+      - I want books rated above [4.0](min_avg_rating)
+      - show me highly rated books [4.5](min_avg_rating)+
+      - books with minimum [3.7](min_avg_rating) rating
+      - at least [4.8](min_avg_rating) star rating
 
   - intent: find_book_by_character
     examples: |

@@ -51,9 +51,7 @@ class ActionSearchBooks(Action):
         num_pages = tracker.get_slot("num_pages")
         min_pages = tracker.get_slot("min_num_pages")
         max_pages = tracker.get_slot("max_num_pages")
-        avg_rating = tracker.get_slot("avg_rating")
         min_rating = tracker.get_slot("min_avg_rating")
-        max_rating = tracker.get_slot("max_avg_rating")
         characters = tracker.get_slot("characters")
         
         # Parti dal dataset completo
@@ -100,24 +98,10 @@ class ActionSearchBooks(Action):
                 filtered_df = filtered_df.dropna(subset=['num_pages'])
                 filtered_df = filtered_df[filtered_df['num_pages'] <= float(max_pages)]
             
-            # Filtro per rating esatto (±0.2)
-            if avg_rating:
-                target_rating = float(avg_rating)
-                filtered_df = filtered_df.dropna(subset=['avg_rating'])
-                filtered_df = filtered_df[
-                    (filtered_df['avg_rating'] >= target_rating - 0.2) &
-                    (filtered_df['avg_rating'] <= target_rating + 0.2)
-                ]
-            
             # Filtro per min rating
             if min_rating:
                 filtered_df = filtered_df.dropna(subset=['avg_rating'])
                 filtered_df = filtered_df[filtered_df['avg_rating'] >= float(min_rating)]
-            
-            # Filtro per max rating
-            if max_rating:
-                filtered_df = filtered_df.dropna(subset=['avg_rating'])
-                filtered_df = filtered_df[filtered_df['avg_rating'] <= float(max_rating)]
             
             # Filtro per personaggio
             if characters:
@@ -127,13 +111,11 @@ class ActionSearchBooks(Action):
             
             # Verifica se ci sono risultati
             if filtered_df.empty:
-                active_filters = self._get_active_filters(
-                    genre, title, author, num_pages, min_pages, max_pages,
-                    avg_rating, min_rating, max_rating, characters
+                natural_filters = self._format_filters_naturally(
+                    genre, title, author, num_pages, min_pages, max_pages, min_rating, characters
                 )
                 dispatcher.utter_message(
-                    text=f"Sorry, I couldn't find any books matching your criteria: {active_filters}.\n\nYou can type \"new search\" to start fresh and clear all filters. "
-                
+                    text=f"😞 Sorry, I couldn't find any books matching {natural_filters}.\n\nYou can type 'new search' to start fresh and clear all filters."
                 )
                 return []
             
@@ -149,7 +131,7 @@ class ActionSearchBooks(Action):
             
             # Costruisci il messaggio testuale (come prima)
             message = self._format_multiple_books_message(
-                top_books, genre, author, min_pages, max_pages, min_rating, characters
+                top_books, genre, author, min_pages, max_pages, min_rating, characters, num_pages
             )
             
             # Genera i bottoni con solo l'indice
@@ -179,12 +161,57 @@ class ActionSearchBooks(Action):
         except Exception as e:
             dispatcher.utter_message(text=f"Error: {str(e)}")
         return []
+    
+    def _format_filters_naturally(self, genre, title, author, num_pages, min_pages, max_pages,
+                                 min_rating, characters):
+        """Formatta i filtri attivi in linguaggio naturale"""
+        filters = []
+        
+        # Genere
+        if genre:
+            filters.append(f"genre '{genre}'")
+        
+        # Titolo
+        if title:
+            filters.append(f"title containing '{title}'")
+        
+        # Autore
+        if author:
+            filters.append(f"author '{author}'")
+        
+        # Pagine
+        if num_pages:
+            filters.append(f"exactly {num_pages} pages")
+        elif min_pages and max_pages:
+            filters.append(f"between {min_pages} and {max_pages} pages")
+        elif min_pages:
+            filters.append(f"at least {min_pages} pages")
+        elif max_pages:
+            filters.append(f"up to {max_pages} pages")
+        
+        # Rating
+        if min_rating:
+            filters.append(f"rating of at least {min_rating}")
+
+        # Personaggi
+        if characters:
+            filters.append(f"character '{characters}'")
+        
+        # Unisci i filtri
+        if len(filters) == 0:
+            return "your criteria"
+        elif len(filters) == 1:
+            return filters[0]
+        elif len(filters) == 2:
+            return f"{filters[0]} and {filters[1]}"
+        else:
+            return ", ".join(filters[:-1]) + f", and {filters[-1]}"
         
     
     def _return_single_book(self, filtered_df, dispatcher, title):
         """Helper per restituire un singolo libro quando cercano per titolo"""
         if filtered_df.empty:
-            dispatcher.utter_message(text=f"Sorry, I couldn't find a book titled '{title}'.\nYou can always type \"new search\" to start fresh and clear all filters.")
+            dispatcher.utter_message(text=f"😞 Sorry, I couldn't find a book titled '{title}'.\nYou can always type \"new search\" to start fresh and clear all filters.")
             return []
         
         # Ordina per num_ratings per prendere la versione più popolare
@@ -195,7 +222,7 @@ class ActionSearchBooks(Action):
         # Imposta lo slot per indicare che abbiamo trovato un libro specifico
         return [SlotSet("found_specific_book", True)]
     
-    def _format_multiple_books_message(self, books_df, genre, author, min_pages, max_pages, min_rating, characters):
+    def _format_multiple_books_message(self, books_df, genre, author, min_pages, max_pages, min_rating, characters, num_pages):
         """Formatta messaggio con 3-5 libri suggeriti"""
         # Header con criteri attivi
         active_criteria = []
@@ -203,14 +230,12 @@ class ActionSearchBooks(Action):
             active_criteria.append(f"{genre} genre")
         if author:
             active_criteria.append(f"by the author {author}")
-            #Aggiungere il caso in cui si mette il numero specifico di pagine
-        if min_pages or max_pages:
-            if min_pages and max_pages:
-                active_criteria.append(f"with {int(min_pages)}-{int(max_pages)} pages")
-            elif min_pages:
-                active_criteria.append(f"over {int(min_pages)} pages")
-            elif max_pages:
-                active_criteria.append(f"under {int(max_pages)} pages")
+        if num_pages:
+            active_criteria.append(f"with around {int(num_pages)} pages")
+        if min_pages:
+            active_criteria.append(f"over {int(min_pages)} pages")
+        if max_pages:
+            active_criteria.append(f"under {int(max_pages)} pages")
         if min_rating:
             active_criteria.append(f"rating ≥ {min_rating}")
         if characters:
@@ -297,7 +322,7 @@ class ActionSearchBooks(Action):
         return message
     
     def _get_active_filters(self, genre, title, author, num_pages, min_pages, 
-                           max_pages, avg_rating, min_rating, max_rating, characters):
+                           max_pages, min_rating, characters):
         """Helper per costruire stringa con filtri attivi"""
         active = []
         if genre:
@@ -312,12 +337,8 @@ class ActionSearchBooks(Action):
             active.append(f"min_pages={min_pages}")
         if max_pages:
             active.append(f"max_pages={max_pages}")
-        if avg_rating:
-            active.append(f"rating~{avg_rating}")
         if min_rating:
             active.append(f"min_rating={min_rating}")
-        if max_rating:
-            active.append(f"max_rating={max_rating}")
         if characters:
             active.append(f"character={characters}")
         return ", ".join(active) if active else "none"
@@ -339,9 +360,7 @@ class ActionResetSlots(Action):
             SlotSet("num_pages", None),
             SlotSet("min_num_pages", None),
             SlotSet("max_num_pages", None),
-            SlotSet("avg_rating", None),
             SlotSet("min_avg_rating", None),
-            SlotSet("max_avg_rating", None),
             SlotSet("characters", None),
             SlotSet("found_specific_book", False),
             SlotSet("suggested_books", None), 
@@ -368,9 +387,7 @@ class ActionResetSlotsWithMessage(Action):
             SlotSet("num_pages", None),
             SlotSet("min_num_pages", None),
             SlotSet("max_num_pages", None),
-            SlotSet("avg_rating", None),
             SlotSet("min_avg_rating", None),
-            SlotSet("max_avg_rating", None),
             SlotSet("characters", None),
             SlotSet("found_specific_book", False),
             SlotSet("suggested_books", None), 
@@ -404,7 +421,7 @@ class ActionShowSelectedBook(Action):
         # Controllo di sicurezza
         if not book_index or not suggested_books:
             dispatcher.utter_message(
-                text="Sorry, I couldn't find that book. Please search again."
+                text="😞 Sorry, I couldn't find that book. Please search again."
             )
             return []
         
@@ -434,7 +451,7 @@ class ActionShowSelectedBook(Action):
             
         except (ValueError, KeyError, IndexError) as e:
             dispatcher.utter_message(
-                text=f"Sorry, there was an error selecting that book: {str(e)}"
+                text=f"😞 Sorry, there was an error selecting that book: {str(e)}"
             )
             return []
     

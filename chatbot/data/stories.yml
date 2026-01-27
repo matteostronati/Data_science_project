@@ -6,6 +6,12 @@ stories:
       - intent: greet
       - action: utter_greet
       - action: action_reset_slots
+  
+  - story: user wants a book
+    steps:
+      - intent: find_book
+      - action: utter_greet
+      - action: action_reset_slots
       
   - story: direct genre search
     steps:
@@ -34,6 +40,13 @@ stories:
         entities:
           - min_num_pages
           - max_num_pages
+      - action: action_search_books
+
+  - story: search book by number of pages
+    steps:
+      - intent: find_book_by_page
+        entities:
+          - num_pages
       - action: action_search_books
 
   - story: search by rating

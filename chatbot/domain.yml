@@ -28,9 +28,7 @@ entities:
   - num_pages
   - min_num_pages
   - max_num_pages
-  - avg_rating
   - min_avg_rating
-  - max_avg_rating
   - characters
   - book_index
 
@@ -77,26 +75,12 @@ slots:
       - type: from_entity
         entity: max_num_pages
   
-  avg_rating:
-    type: float
-    influence_conversation: false
-    mappings:
-      - type: from_entity
-        entity: avg_rating
-  
   min_avg_rating:
     type: float
     influence_conversation: false
     mappings:
       - type: from_entity
         entity: min_avg_rating
-  
-  max_avg_rating:
-    type: float
-    influence_conversation: false
-    mappings:
-      - type: from_entity
-        entity: max_avg_rating
   
   characters:
     type: text
