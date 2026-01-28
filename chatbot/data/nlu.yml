@@ -113,6 +113,16 @@ nlu:
       - [nonfiction](genre) books
       - something about [history](genre)
       - I want a book talking about [sports](genre)
+      - I want a book with genre [fantasy](genre)
+      - looking for a [drama](genre) genre book
+      - genre [adventure](genre)
+      - I'm interested in [biography](genre) genre
+      - can you find [comedy](genre) genre books
+      - show me [crime](genre) genre
+      - [poetry](genre) genre please
+      - books in the [philosophy](genre) genre
+      - I'd like the genre [self-help](genre)
+      - find me [autobiography](genre) genre
 
   - intent: find_book_by_title
     examples: |
