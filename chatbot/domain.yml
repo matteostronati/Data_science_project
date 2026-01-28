@@ -115,12 +115,18 @@ responses:
     - text: "⚠️ I'm not sure what you mean. Can you try saying it in a different way?"
 
   utter_greet:
-    - text: "👋 Hello! I'm your book recommendation assistant. I can help you find books in two ways:\n• Search by title - Tell me the book title you're looking for\n• Discover with filters - I'll suggest books based on genre, author, rating, number of pages, and more!"
-    - text: "👋 Welcome! I'm here to help you find the perfect book. You can:\n• Search for a specific title if you know what you're looking for\n• Use filters (genre, author, rating, number of pages) to discover new books"
+    - text: "👋 Hello! I'm your book recommendation assistant. I can help you find books in two ways:
+            \n• Search by title - Tell me the book title you're looking for
+            \n• Discover with filters - I'll suggest books based on genre, author, rating, number of pages, and more!"
+    - text: "👋 Welcome! I'm here to help you find the perfect book. You can:
+            \n• Search for a specific title if you know what you're looking for
+            \n• Use filters (genre, author, rating, number of pages) to discover new books"
     
   utter_goodbye:
-    - text: "😊 Happy reading! Come back anytime you need a book recommendation.\nType \"new search\" to start a new conversation."
-    - text: "😊 Goodbye! Enjoy your book and see you next time!\nType \"new search\" to find another book."
+    - text: "😊 Happy reading! Come back anytime you need a book recommendation.
+            \nType \"new search\" to start a new conversation."
+    - text: "😊 Goodbye! Enjoy your book and see you next time!
+            \nType \"new search\" to find another book."
   
   utter_ask_newsearch:
     - text: "🔍 I can help you find books in two ways:\n• Search by title - Tell me the book title you're looking for\n• Discover with filters - I'll suggest books based on genre, author, rating, number of pages, and more!"
