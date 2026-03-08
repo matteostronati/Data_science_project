@@ -1,0 +1,29 @@
+version: "2.0"
+
+rules:
+  - rule: Say goodbye anytime the user says goodbye
+    steps:
+      - intent: goodbye
+      - action: utter_goodbye
+
+  - rule: Handle stop intent
+    steps:
+      - intent: stop
+      - action: utter_stop
+
+  - rule: Reset slots on new search
+    steps:
+      - intent: new_search
+      - action: action_reset_slots_with_message
+      - action: utter_ask_newsearch
+
+  - rule: User selects a book from the list
+    steps:
+      - intent: select_book
+      - action: action_show_selected_book
+    wait_for_user_input: false
+
+  - rule: Ask user to rephrase when not understood
+    steps:
+      - intent: nlu_fallback
+      - action: action_default_fallback
