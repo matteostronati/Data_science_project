@@ -1,13 +1,37 @@
-# Data Science Projects Portfolio
+<h1 align="center">Data Science Portfolio</h1>
 
-## Overview
+## Table of Contents <a name="table-of-contents"></a>
+
+1. [**Project Overview**](#projectoverview)
+
+2. [**Folder Structure**](#folderstructure)
+
+3. [**Academic Success Segmentation and Prediction & Energy and Environmental Forecasting**](#project1)
+
+4. [**Social Network Analysis (SNA) of the Marvel Superhero Network**](#project2)
+
+5. [**Conversational AI: Design and Development of "BiblioBot"**](#project3)
+
+6. [**Natural Language Processing (NLP): Sentiment Analysis and Brand Reputation on Twitter (The Dell Case)**](#project4)
+
+7. [**Generative Artificial Intelligence: Technical Evaluation in Software and Visual Development**](#project5)
+
+8. [**Legal**](#legal)
+    - [Academic Context](#academiccontext)
+    - [License](#license)
+
+## 1. Project Overview <a name="projectoverview"></a>
 This repository contains the source code, datasets, Jupyter notebooks, and technical reports for five distinct Data Science projects. These projects were developed as part of the Data Science course (Master's Degree in Computer and Automation Engineering) at **Università Politecnica delle Marche** during the Academic Year 2025-2026. 
 
 The portfolio covers a comprehensive spectrum of advanced analytics, machine learning, and artificial intelligence domains, demonstrating both theoretical understanding and practical implementation skills.
 
 ---
 
-## 1. Academic Success Segmentation and Prediction & Energy and Environmental Forecasting
+## 2. Folder Structure <a name="folderstructure"></a>
+
+---
+
+## 3. Academic Success Segmentation and Prediction & Energy and Environmental Forecasting <a name="project1"></a>
 
 **Project Description:** This module explores two distinct analytical domains, applying unsupervised learning techniques, supervised classification, and time series analysis to extract predictive patterns from complex datasets.
 
@@ -33,7 +57,7 @@ This phase focuses on modeling and forecasting monthly electricity generation an
 
 ---
 
-## 2. Social Network Analysis (SNA) of the Marvel Superhero Network
+## 4. Social Network Analysis (SNA) of the Marvel Superhero Network <a name="project2"></a>
 
 **Project Description:** This project focuses on the topological and structural analysis of the Marvel Universe, modeled as a complex social network where nodes represent characters (superheroes and villains) and edges define their co-appearances in comic books. The primary objective is to unveil relational dynamics, identify central entities, and assess the resilience of the shared universe's narrative fabric.
 
@@ -53,7 +77,28 @@ This phase focuses on modeling and forecasting monthly electricity generation an
 
 ---
 
-## 3. Natural Language Processing (NLP): Sentiment Analysis and Brand Reputation on Twitter (The Dell Case)
+## 5. Conversational AI: Design and Development of "BiblioBot" <a name="project3"></a>
+
+**Project Description:** This project illustrates the design, implementation, and deployment of "BiblioBot", a conversational assistant (Chatbot) specialized in the literary domain. The goal is to overcome the limitations of traditional keyword-based search engines (GUI/CLI) by offering users natural language interaction to combat the phenomenon of *information overload*. The system can understand complex requests and suggest readings by dynamically applying multi-criteria filters (e.g., by author, genre, page count, rating, and characters).
+
+**Methodology and System Architecture:**
+* **Data Engineering and Cleaning (Goodreads Dataset):** The bot's knowledge base was built from a web-scraped dataset containing over 19,000 records. A rigorous pipeline in Pandas was implemented for text cleaning, involving: the removal of systematic "garbage strings" in the genres column, the reconstruction of truncated descriptions, and careful linguistic normalization (limiting the corpus to the English language). Deduplication was managed via a "Survival of the Fittest" logic (keeping only the editions with the highest number of interactions) and setting minimum popularity thresholds. The optimized final dataset consists of 12,380 high-quality works structured across 15 features.
+* **NLU (Natural Language Understanding) Component:** The semantic understanding engine was trained to classify the user's *Intent* (e.g., `find_book_by_author`, `specify_genre`, `new_search`) and simultaneously extract relevant *Entities* (structured parameters like genre, title, or page range) from variable conversational phrasing.
+* **Dialogue Management (Core) and State Memory:** The conversational flow is governed by a hybrid approach:
+  * *Stories:* Probabilistic models that allow the bot to generalize multi-turn dialogue paths and handle user confirmations or feedback.
+  * *Rules:* Strict deterministic behaviors for specific scenarios (e.g., greetings, fallbacks in case of misunderstanding, or explicit filter resets).
+  * *Slots:* Memory variables that accumulate search criteria during the conversation, allowing the bot to perform incremental filtering on the dataset.
+* **Custom Actions and Information Retrieval:** The application logic is decoupled from the dialogue engine via an Action Server. Custom Python scripts query the cleaned dataset by cross-referencing values saved in the *Slots*, sorting the results by relevance and rating, and dynamically formatting textual responses or interactive buttons to show the user.
+* **Deployment and Telegram Integration:** The system, developed entirely in an isolated local virtual environment (Conda) to ensure privacy and control, was exposed externally via an HTTPS tunnel (Ngrok). Integration with the Telegram API, configured through BotFather, provided the final user interface for interaction and operational testing.
+
+**Key Technologies & Libraries:**
+* **Conversational Framework:** Rasa Open Source (Rasa NLU, Rasa Core, Rasa Action Server).
+* **Data Processing & Logic:** Python, Pandas.
+* **Integration & Deployment:** Telegram API (BotFather), Ngrok, Anaconda.
+
+---
+
+## 6. Natural Language Processing (NLP): Sentiment Analysis and Brand Reputation on Twitter (The Dell Case) <a name="project4"></a>
 
 **Project Description:** This module focuses on processing unstructured textual language from social media, aiming to evaluate Dell's *Brand Reputation*. Through an end-to-end NLP pipeline, the project seeks to classify tweet polarity (Sentiment Analysis) and automatically extract key concepts and named entities (Information Extraction) to contextualize user feedback.
 
@@ -75,28 +120,7 @@ This phase focuses on modeling and forecasting monthly electricity generation an
 
 ---
 
-## 4. Conversational AI: Design and Development of "BiblioBot"
-
-**Project Description:** This project illustrates the design, implementation, and deployment of "BiblioBot", a conversational assistant (Chatbot) specialized in the literary domain. The goal is to overcome the limitations of traditional keyword-based search engines (GUI/CLI) by offering users natural language interaction to combat the phenomenon of *information overload*. The system can understand complex requests and suggest readings by dynamically applying multi-criteria filters (e.g., by author, genre, page count, rating, and characters).
-
-**Methodology and System Architecture:**
-* **Data Engineering and Cleaning (Goodreads Dataset):** The bot's knowledge base was built from a web-scraped dataset containing over 19,000 records. A rigorous pipeline in Pandas was implemented for text cleaning, involving: the removal of systematic "garbage strings" in the genres column, the reconstruction of truncated descriptions, and careful linguistic normalization (limiting the corpus to the English language). Deduplication was managed via a "Survival of the Fittest" logic (keeping only the editions with the highest number of interactions) and setting minimum popularity thresholds. The optimized final dataset consists of 12,380 high-quality works structured across 15 features.
-* **NLU (Natural Language Understanding) Component:** The semantic understanding engine was trained to classify the user's *Intent* (e.g., `find_book_by_author`, `specify_genre`, `new_search`) and simultaneously extract relevant *Entities* (structured parameters like genre, title, or page range) from variable conversational phrasing.
-* **Dialogue Management (Core) and State Memory:** The conversational flow is governed by a hybrid approach:
-  * *Stories:* Probabilistic models that allow the bot to generalize multi-turn dialogue paths and handle user confirmations or feedback.
-  * *Rules:* Strict deterministic behaviors for specific scenarios (e.g., greetings, fallbacks in case of misunderstanding, or explicit filter resets).
-  * *Slots:* Memory variables that accumulate search criteria during the conversation, allowing the bot to perform incremental filtering on the dataset.
-* **Custom Actions and Information Retrieval:** The application logic is decoupled from the dialogue engine via an Action Server. Custom Python scripts query the cleaned dataset by cross-referencing values saved in the *Slots*, sorting the results by relevance and rating, and dynamically formatting textual responses or interactive buttons to show the user.
-* **Deployment and Telegram Integration:** The system, developed entirely in an isolated local virtual environment (Conda) to ensure privacy and control, was exposed externally via an HTTPS tunnel (Ngrok). Integration with the Telegram API, configured through BotFather, provided the final user interface for interaction and operational testing.
-
-**Key Technologies & Libraries:**
-* **Conversational Framework:** Rasa Open Source (Rasa NLU, Rasa Core, Rasa Action Server).
-* **Data Processing & Logic:** Python, Pandas.
-* **Integration & Deployment:** Telegram API (BotFather), Ngrok, Anaconda.
-
----
-
-## 5. Generative Artificial Intelligence: Technical Evaluation in Software and Visual Development
+## 7. Generative Artificial Intelligence: Technical Evaluation in Software and Visual Development <a name="project5"></a>
 
 **Project Description:** This concluding module represents a critical and analytical investigation into the real capabilities and limitations of Generative Artificial Intelligence (GenAI) models. Through a rigorous iterative *Prompt Engineering* process, the project evaluates the reliability of models in generating constrained visual artifacts and writing source code, measuring their resilience on logical schemas, mathematical calculations, and IT state management.
 
@@ -119,18 +143,21 @@ This phase focuses on modeling and forecasting monthly electricity generation an
 
 ---
 
-### Academic Context
-* **University:** Università Politecnica delle Marche (UNIVPM)
-* **Master's Degree:** Ingegneria Informatica e dell'Automazione (Computer and Automation Engineering)
-* **Course:** Data Science
-* **Academic Year:** 2025-2026
+## 8. Legal <a name="legal"></a>
+### Academic Context <a name="academiccontext"></a>
+   * **University:** Università Politecnica delle Marche (UNIVPM)
+   * **Master's Degree:** Ingegneria Informatica e dell'Automazione (Computer and Automation Engineering)
+   * **Course:** Data Science
+   * **Academic Year:** 2025-2026
 
-### Students
-* Matteo Copertari
-* Kevin Giusti
-* Matteo Stronati
-* Jacopo Tarulli
+   #### Students
+   * Matteo Copertari
+   * Kevin Giusti
+   * Matteo Stronati
+   * Jacopo Tarulli
 
-### Professors
-* Domenico Ursino
-* Christopher Buratti
+   #### Professors
+   * Domenico Ursino
+   * Christopher Buratti
+### License <a name="license"></a>
+   This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
