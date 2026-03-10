@@ -21,7 +21,7 @@
     - [License](#license)
 
 ## 1. Project Overview <a name="projectoverview"></a>
-This repository contains the source code, datasets, Jupyter notebooks, and technical reports for five distinct Data Science projects. These projects were developed as part of the Data Science course (Master's Degree in Computer and Automation Engineering) at **Università Politecnica delle Marche** during the Academic Year 2025-2026. 
+This repository contains the source code, datasets, Jupyter notebooks and technical reports for five distinct Data Science projects. These projects were developed as part of the Data Science course (Master's Degree in Computer and Automation Engineering) at **Università Politecnica delle Marche** during the Academic Year 2025-2026. 
 
 The portfolio covers a comprehensive spectrum of advanced analytics, machine learning, and artificial intelligence domains, demonstrating both theoretical understanding and practical implementation skills.
 
