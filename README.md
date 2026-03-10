@@ -28,7 +28,33 @@ The portfolio covers a comprehensive spectrum of advanced analytics, machine lea
 ---
 
 ## 2. Folder Structure <a name="folderstructure"></a>
-
+```text
+Data_science_project/
+├─ Chatbot               
+│  ├─ data
+│  ├─ notebook
+│  ├─ rasa_implementation
+│  └─ report
+├─ Classification Clustering and Time Series               
+│  ├─ data
+│  ├─ notebooks
+│  └─ report
+├─ Generative AI              
+│  ├─ code_generation
+│  ├─ images_generation
+│  └─ report
+├─ NLP              
+│  ├─ data
+│  ├─ notebooks
+│  └─ report
+├─ Social Network Analysis               
+│  ├─ data
+│  ├─ notebooks
+│  └─ report
+├─ .gitignore
+├─ LICENSE
+└─ README.md
+```
 ---
 
 ## 3. Academic Success Segmentation and Prediction & Energy and Environmental Forecasting <a name="project1"></a>
