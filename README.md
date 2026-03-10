@@ -81,7 +81,7 @@ This phase focuses on modeling and forecasting monthly electricity generation an
   * For **carbon dioxide emissions**, a comparative test was conducted between a univariate SARIMA model (MAPE of 6.31%) and a multivariate SARIMAX model. The inclusion of highly correlated exogenous variables (e.g., percentage of generated renewable energy) in the SARIMAX model reduced the error to 1.38% (a 78% reduction).
 * **Operational Forecasting:** Official forecasts for the upcoming 2025-2026 biennium were ultimately consolidated using historical models to ensure the stability of projections in the absence of deterministic future exogenous variables.
 <div align="center">
-  <img src="images/forecast_SARIMA.png" alt="Forecast of CO2 emissions using SARIMA model" width="500"><br>
+  <img src="images/emissions_CO2_SARIMA.png" alt="Forecast of CO2 emissions using SARIMA model" width="650"><br>
   <em style="font-size: 0.9em;">Forecast of CO<sub>2</sub> emissions using SARIMA model</em>
 </div>
 
@@ -89,6 +89,8 @@ This phase focuses on modeling and forecasting monthly electricity generation an
 * **Data Analysis and Visualization:** Python, Pandas, NumPy, Matplotlib, Seaborn, Plotly.
 * **Machine Learning & Classification:** Scikit-learn (GridSearchCV, RandomForest, MLP, SVM, KMeans, DBSCAN).
 * **Time Series Analysis:** Statsmodels (SARIMA/SARIMAX models, Augmented Dickey-Fuller test).
+
+For further information and detailed insights, consult the complete [report](Classification%20Clustering%20and%20Time%20Series/report/report_classification_clustering_timeseries.pdf).
 
 ---
 
