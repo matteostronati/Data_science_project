@@ -51,6 +51,7 @@ Data_science_project/
 │  ├─ data
 │  ├─ notebooks
 │  └─ report
+├─ images
 ├─ .gitignore
 ├─ LICENSE
 └─ README.md
