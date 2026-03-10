@@ -161,12 +161,18 @@ For further information and detailed insights, consult the complete [report](Cha
 * **Information Extraction (KPE & NER):**
   * *Key-Phrase Extraction (KPE):* Implementation of the *TextRank* (graph-based) algorithm for the unsupervised extraction of key expressions. The comparison between language models demonstrated that a Transformer architecture (`en_core_web_trf`) superiorly filters textual noise, extracting highly semantically relevant multi-token noun phrases (e.g., "customer service", "new laptop").
   * *Named Entity Recognition (NER):* Extraction and classification of entities. Quantitative analysis revealed a massive predominance of the *ORG* (Organizations) label, followed by *DATE* and *PRODUCT*. In this task as well, the Transformer model minimized over-aggregation and ensured a more rigorous semantic classification compared to base models.
+<div align="center">
+  <img src="images/wordcloud_positive_sentiment.png" alt="WordCloud for positive sentiment" width="500"><br>
+  <em style="font-size: 0.9em;">WordCloud for positive sentiment</em>
+</div>
 
 **Key Technologies & Libraries:**
 * **NLP & Text Processing:** NLTK (TweetTokenizer), spaCy (Small and Transformer models), textacy (TextRank), emoji.
 * **Word Embedding:** Gensim (Word2Vec).
 * **Machine Learning & Deep Learning:** Scikit-learn (Naive Bayes, Logistic Regression, SVM), Keras/TensorFlow (LSTM, Bi-LSTM with Early Stopping and Dropout).
 * **Data Processing and Visualization:** Python, Pandas, Matplotlib, WordCloud.
+
+For further information and detailed insights, consult the complete [report](NLP/report/report_NLP.pdf).
 
 ---
 
