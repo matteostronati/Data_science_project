@@ -116,7 +116,9 @@ For further information and detailed insights, consult the complete [report](Cla
 * **Graph Management and Analysis:** NetworkX (for metric calculation, centrality algorithms, and attack simulation).
 * **Data Processing:** Python, Pandas, NumPy.
 * **Visualization:** Matplotlib, Seaborn (for distributional analysis and network degradation visualization).
+
 For further information and detailed insights, consult the complete [report](Social%20Network%20Analysis/report/report_Social_Network_Analysis.pdf).
+
 ---
 
 ## 5. Conversational AI: Design and Development of "BiblioBot" <a name="project3"></a>
