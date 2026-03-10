@@ -185,10 +185,19 @@ For further information and detailed insights, consult the complete [report](NLP
   * The experiment required the diffusion model to generate two Business Intelligence (BI) interfaces dedicated to the Milano-Cortina 2026 Winter Olympics ("Athlete Dashboard" and "Nation Dashboard").
   * *Architectural Constraints:* The model had to operate within a closed data environment, relying exclusively on a typed relational logic schema (Entities: Nation, Athlete, Participation, Event) and strictly respecting its cardinalities.
   * *Results and Criticalities:* The iterations exposed the AI's initial inability to self-verify domain rules (e.g., awarding a medal to a fifth-place finisher) and its structural lack of mathematical sensitivity (e.g., inverse proportionality in sports race times not respected). "Visual hallucinations" and algebraic inconsistencies also emerged. Only through increasingly restrictive logical and mathematical constraints was it possible to force the model to produce analytically valid outputs.
+<div align="center">
+  <img src="images/dashboard_nation.png" alt="Dashboard generation output using DALL-E" width="500"><br>
+  <em style="font-size: 0.9em;">Dashboard generation output using DALL-E</em>
+</div>
+
 * **Part B: Software Development and Algorithmics (Claude)**
   * The objective was the programming of a desktop photo editing application in Python. The application requires real-time control of chromatic parameters (brightness, contrast, temperature), geometric transformations, and complex filters (Vintage, Black/White).
   * *Generated Code Analysis:* The Large Language Model (LLM) demonstrated excellent autonomous design capabilities in building the GUI. However, the stress test revealed severe fallacies in the deep management of the logical-applicative state.
   * *Results and Criticalities:* The model struggled to implement mutual exclusion between chromatic filters and manifested persistent index bugs in the stack's history logic (*Undo* command). Furthermore, algebraic discrepancies emerged in the matrix calculation for resizing text fonts overlaid on images, highlighting GenAI's limitations in autonomously solving mathematical-spatial problems without explicit guidance.
+<div align="center">
+  <img src="images/photo_editor.png" alt="Photo editor with code generation using Claude" width="500"><br>
+  <em style="font-size: 0.9em;">Photo editor with code generation using Claude</em>
+</div>
 
 **Key Technologies & Libraries:**
 * **GenAI Models Analyzed:** Claude (Transformer-based LLM for code), DALL-E (Diffusion Model for images).
@@ -196,6 +205,8 @@ For further information and detailed insights, consult the complete [report](NLP
   * `tkinter`: for rendering Graphical User Interface (GUI) widgets and grid management.
   * `PIL (Pillow)`: for I/O processes (JPG/PNG saving), raster manipulations, and chromatic filters.
   * `numpy`: for advanced matrix operations on pixel tensors and algebraic calculations.
+
+For further information and detailed insights, consult the complete [report](Generative%20AI/report/report_GenerativeAI.pdf).
 
 ---
 
