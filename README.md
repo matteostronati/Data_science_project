@@ -134,11 +134,17 @@ For further information and detailed insights, consult the complete [report](Soc
   * *Slots:* Memory variables that accumulate search criteria during the conversation, allowing the bot to perform incremental filtering on the dataset.
 * **Custom Actions and Information Retrieval:** The application logic is decoupled from the dialogue engine via an Action Server. Custom Python scripts query the cleaned dataset by cross-referencing values saved in the *Slots*, sorting the results by relevance and rating, and dynamically formatting textual responses or interactive buttons to show the user.
 * **Deployment and Telegram Integration:** The system, developed entirely in an isolated local virtual environment (Conda) to ensure privacy and control, was exposed externally via an HTTPS tunnel (Ngrok). Integration with the Telegram API, configured through BotFather, provided the final user interface for interaction and operational testing.
+<div align="center">
+  <img src="images/chatbot_example.jpeg" alt="Interaction with BiblioBot to find a book" width="250"><br>
+  <em style="font-size: 0.9em;">Interaction with "BiblioBot" to find a book</em>
+</div>
 
 **Key Technologies & Libraries:**
 * **Conversational Framework:** Rasa Open Source (Rasa NLU, Rasa Core, Rasa Action Server).
 * **Data Processing & Logic:** Python, Pandas.
 * **Integration & Deployment:** Telegram API (BotFather), Ngrok, Anaconda.
+
+For further information and detailed insights, consult the complete [report](Chatbot/report/report_Chatbot.pdf).
 
 ---
 
