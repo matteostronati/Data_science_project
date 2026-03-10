@@ -103,15 +103,20 @@ For further information and detailed insights, consult the complete [report](Cla
   * *Degree Centrality:* to identify "super-hubs", i.e., characters with the highest absolute number of connections.
   * *Betweenness Centrality:* to discover nodes that act as crucial "bridges", essential for information flow and for connecting different sub-communities (e.g., mutants vs. cosmic heroes).
   * *Closeness and PageRank Centrality:* to evaluate global influence and a character's ability to quickly reach the entire narrative network.
+* **Topological Structures:** Several key topological structures were examinated to understand network dynamics and character interactions. Specifically, we analyzed triads, cliques, k-cores, communities and ego-networks.
 * **Topological Properties (Scale-Free and Small-World):** The analysis confirmed that the Marvel universe exhibits a degree distribution typical of *Scale-Free* networks (with a few highly connected hubs and many peripheral nodes), but simultaneously possesses marked *Small-World* properties, characterized by high local clustering and densely interconnected internal communities.
 * **Resilience Assessment (Targeted Attacks):** A crucial focus of the project was testing the network's robustness by simulating "targeted attacks", specifically the sequential removal of major hubs. Contrary to ideal *Scale-Free* networks (which tend to fragment suddenly), the Marvel network showed gradual and controlled structural degradation.
 * **Narratological Implications:** Resilience tests demonstrated that the removal of main protagonists does not cause the collapse of the collaborative fabric. This is guaranteed by a strong "structural redundancy" (the presence of numerous intermediate-level hubs) and the high cohesion of local communities. From a narrative perspective, this means the Marvel Universe is robustly designed to continuously generate new story arcs around secondary characters, keeping the global coherence intact.
+<div align="center">
+  <img src="images/top100_heroes_betweenness.png" alt="Top 100 heroes according by betweenness centrality" width="500"><br>
+  <em style="font-size: 0.9em;">Top 100 heroes according by betweenness centrality</em>
+</div>
 
 **Key Technologies & Libraries:**
 * **Graph Management and Analysis:** NetworkX (for metric calculation, centrality algorithms, and attack simulation).
 * **Data Processing:** Python, Pandas, NumPy.
 * **Visualization:** Matplotlib, Seaborn (for distributional analysis and network degradation visualization).
-
+For further information and detailed insights, consult the complete [report](Social%20Network%20Analysis/report/report_Social_Network_Analysis.pdf).
 ---
 
 ## 5. Conversational AI: Design and Development of "BiblioBot" <a name="project3"></a>
