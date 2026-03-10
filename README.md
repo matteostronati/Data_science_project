@@ -68,12 +68,10 @@ The objective of this phase is to profile 10,000 American college students and p
 * **Exploratory Data Analysis (EDA):** The dataset revealed a strong class imbalance, with only 16.6% of students securing job placement. Correlation analysis highlighted that Cumulative Grade Point Average (CGPA), Intelligence Quotient (IQ), and communication skills are the most discriminating factors.
 * **Unsupervised Modeling (Clustering):** K-Means (optimized via the Elbow Method at K=4), DBSCAN (to isolate variable-density clusters and statistical noise), and Hierarchical Clustering (Ward linkage with 6 clusters) algorithms were implemented. Cluster analysis allowed the delineation of distinct student profiles, demonstrating how students characterized by "Academic and Communicative Excellence" achieve employment rates of 46.1%, compared to near-zero percentages for at-risk profiles.
 * **Supervised Modeling (Classification):** Multiple classifiers were trained for placement prediction, including Random Forest, SVM (Linear and RBF), Neural Networks (MLP), and boosting algorithms (AdaBoost). Following an optimization process via Grid Search and 5-fold Cross-Validation, non-linear and ensemble models (such as Random Forest and Neural Networks) achieved a predictive accuracy close to 100%. Feature Importance analysis unequivocally confirmed the decisive weight of CGPA and IQ in the models' decision-making processes.
-<p align="center">
-  <figure>
-    <img src="images/k-means.png" alt="K-Means Result" width="250">
-    <figcaption>K-Means result for students clustering</figcaption>
-  </figure>
-</p>
+<div align="center">
+  <img src="images/k-means.png" alt="K-Means Result" width="500"><br>
+  <em style="font-size: 0.9em;">K-Means result for students clustering</em>
+</div>
 
 ### Part B: US Electricity Generation & Emissions (Time Series Analysis)
 This phase focuses on modeling and forecasting monthly electricity generation and $CO_2$ emissions in the US energy sector, analyzing historical data from 2001 to 2024.
@@ -82,6 +80,10 @@ This phase focuses on modeling and forecasting monthly electricity generation an
 * **Predictive Modeling:** * For **electricity generation**, a SARIMA $(1,0,0)(1,1,0)_{12}$ model was configured, yielding highly accurate forecasts on the test set (2023-2024) and recording a Mean Absolute Percentage Error (MAPE) of just 3.02%.
   * For **carbon dioxide emissions**, a comparative test was conducted between a univariate SARIMA model (MAPE of 6.31%) and a multivariate SARIMAX model. The inclusion of highly correlated exogenous variables (e.g., percentage of generated renewable energy) in the SARIMAX model reduced the error to 1.38% (a 78% reduction).
 * **Operational Forecasting:** Official forecasts for the upcoming 2025-2026 biennium were ultimately consolidated using historical models to ensure the stability of projections in the absence of deterministic future exogenous variables.
+<div align="center">
+  <img src="images/forecast_SARIMA.png" alt="Forecast of CO2 emissions using SARIMA model" width="500"><br>
+  <em style="font-size: 0.9em;">Forecast of CO<sub>2</sub> emissions using SARIMA model</em>
+</div>
 
 **Key Technologies & Libraries:**
 * **Data Analysis and Visualization:** Python, Pandas, NumPy, Matplotlib, Seaborn, Plotly.
