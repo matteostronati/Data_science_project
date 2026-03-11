@@ -23,7 +23,7 @@
 ## 1. Project Overview <a name="projectoverview"></a>
 This repository contains the source code, datasets, Jupyter notebooks and technical reports for five distinct Data Science projects. These projects were developed as part of the Data Science course (Master's Degree in Computer and Automation Engineering) at **Università Politecnica delle Marche** during the Academic Year 2025-2026. 
 
-The portfolio covers a comprehensive spectrum of advanced analytics, machine learning, and artificial intelligence domains, demonstrating both theoretical understanding and practical implementation skills.
+The portfolio covers a comprehensive spectrum of advanced analytics, machine learning and artificial intelligence domains, demonstrating both theoretical understanding and practical implementation skills.
 
 ---
 
@@ -63,10 +63,10 @@ Data_science_project/
 **Project Description:** This module explores two distinct analytical domains, applying unsupervised learning techniques for **clustering**, supervised **classification** and **time series analysis** to extract predictive patterns from complex datasets.
 
 ### Part A: College Student Placement (Clustering & Classification)
-The objective of this phase is to profile 10,000 American college students and predict their likelihood of job placement based on cognitive, academic, and soft skills metrics.
+The objective of this phase is to profile 10,000 American college students and predict their likelihood of job placement based on cognitive, academic and soft skills metrics.
 
-* **Exploratory Data Analysis (EDA):** The dataset revealed a strong class imbalance, with only 16.6% of students securing job placement. Correlation analysis highlighted that Cumulative Grade Point Average (CGPA), Intelligence Quotient (IQ), and communication skills are the most discriminating factors.
-* **Unsupervised Modeling (Clustering):** K-Means (optimized via the Elbow Method at K=4), DBSCAN (to isolate variable-density clusters and statistical noise), and Hierarchical Clustering (Ward linkage with 6 clusters) algorithms were implemented. Cluster analysis allowed the delineation of distinct student profiles, demonstrating how students characterized by "Academic and Communicative Excellence" achieve employment rates of 46.1%, compared to near-zero percentages for at-risk profiles.
+* **Exploratory Data Analysis (EDA):** The dataset revealed a strong class imbalance, with only 16.6% of students securing job placement. Correlation analysis highlighted that Cumulative Grade Point Average (CGPA), Intelligence Quotient (IQ) and communication skills are the most discriminating factors.
+* **Unsupervised Modeling (Clustering):** K-Means (optimized via the Elbow Method at K=4), DBSCAN (to isolate variable-density clusters and statistical noise) and Hierarchical Clustering (Ward linkage with 6 clusters) algorithms were implemented. Cluster analysis allowed the delineation of distinct student profiles, demonstrating how students characterized by "Academic and Communicative Excellence" achieve employment rates of 46.1%, compared to near-zero percentages for at-risk profiles.
 * **Supervised Modeling (Classification):** Multiple classifiers were trained for placement prediction, including Random Forest, SVM (Linear and RBF), Neural Networks (MLP), and boosting algorithms (AdaBoost). Following an optimization process via Grid Search and 5-fold Cross-Validation, non-linear and ensemble models (such as Random Forest and Neural Networks) achieved a predictive accuracy close to 100%. Feature Importance analysis unequivocally confirmed the decisive weight of CGPA and IQ in the models' decision-making processes.
 <div align="center">
   <img src="images/k-means.png" alt="K-Means Result" width="500"><br>
